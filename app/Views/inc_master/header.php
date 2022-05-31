@@ -9,6 +9,7 @@
     <!-- General CSS Files -->
     <link rel="stylesheet" href="<?= base_url('public/assets/css/bootstrap.min.css') ?>">
     <link rel="stylesheet" href="<?= base_url('public/assets/css/select2.min.css') ?>">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
     <script src="<?= base_url('public/assets/js/jquery.3.2.1.min.js') ?>"></script>
     <script src="<?= base_url('public/assets/js/popper.min.js') ?>"></script>
@@ -19,7 +20,6 @@
     <link rel="stylesheet" href="<?= base_url('public/assets/css/style.css') ?>">
     <link rel="stylesheet" href="<?= base_url('public/assets/dropify/dropify.css') ?>">
     <link rel="stylesheet" href="<?= base_url('public/assets/css/components.css') ?>">
-    <link rel="stylesheet" href="<?= base_url('public/assets/datatable/jquery.dataTables.css') ?>">
     <link rel="stylesheet" href="<?= base_url('public/assets/datatable/buttons.dataTables.min.css') ?>">
 </head>
 

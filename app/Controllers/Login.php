@@ -25,8 +25,9 @@ class Login extends BaseController
         $pass = $this->request->getPost('pass');
         $data = array();
         $cekData = $this->user->cek($user);
+        $pw = md5(md5($pass));
         if ($cekData) {
-            if (password_verify($pass, rtrim($cekData['pass']))) {
+            if ($pw = rtrim($cekData['pass'])) {
                 session()->set('id_user', $cekData['id']);
                 session()->set('nama', $cekData['user']);
                 $id = ['deviceid' => $this->request->getIPAddress()];

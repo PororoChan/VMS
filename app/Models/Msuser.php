@@ -52,13 +52,14 @@ class Msuser extends Model
     public function get_one($id = '')
     {
         $x = $this->builder->select('b.user, b.fullname as fulname, b.pass, b.ssn, b.group, b.area, s.id as usrcod, v.id as usrcode, a.usercode, a.fullname, v.fullname as fullnames, s.fullname as fullnamess, b.phone, b.spvid, b.kasacabid, b.is_active, b.is_loginable, b.is_spv')
-            ->join('vmsmsuser as a', 'b.userid = a.usercode')
-            ->join('vmsmssecurity as v', 'b.spvid = v.id')
-            ->join('vmsmssecurity as s', 'b.kasacabid = s.id');
+            ->join('vmsmsuser as a', 'b.userid=a.usercode')
+            ->join('vmsmssecurity as v', 'b.spvid=v.id')
+            ->join('vmsmssecurity as s', 'b.kasacabid=s.id');
 
-        if ($id != '') {
-            $x->where('b.id', $id);
-        }
+        // if ($id != '') {
+        //     $x->where('s.id', $id);
+        // }
+
         return $x->get()->getRowArray();
     }
     public function tambah($data)

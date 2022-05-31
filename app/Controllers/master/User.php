@@ -29,6 +29,7 @@ class User extends BaseController
         if (session()->get('id_user') == null) {
             return redirect()->to(base_url('login'));
         }
+
         return view('master/user/V_user', $data);
     }
     public function datatabel()
@@ -90,6 +91,7 @@ class User extends BaseController
         if ($id != '') {
             $form_type = 'edit';
         }
+
         $data = [
             'form_type' => $form_type,
             'row' => $this->user->get_one($id),
@@ -98,6 +100,7 @@ class User extends BaseController
         $tes['view'] = view('master/user/V_form', $data);
         echo json_encode($tes);
     }
+
     public function resetData()
     {
         $id = $this->request->getPost('id');
@@ -112,24 +115,22 @@ class User extends BaseController
     public function addData()
     {
         $data = [
-            'user' => $this->request->getPost('user'),
-            'pass' => password_hash($this->request->getPost('pass'), PASSWORD_BCRYPT),
+            'user' => $this->request->getPost('username'),
             'ssn' => $this->request->getPost('ssn'),
-            'group' => $this->request->getPost('group'),
+            'pass' => $this->request->getPost('password'),
+            'group' => $this->request->getPost('groupnum'),
             'fullname' => $this->request->getPost('fullname'),
-            'is_loginable' => $this->request->getPost('is_loginable'),
-            'is_active' => $this->request->getPost('is_active'),
             'area' => $this->request->getPost('area'),
             'userid' => $this->request->getPost('userid'),
             'phone' => $this->request->getPost('phone'),
-            'deviceid' => $this->request->getPost('deviceid'),
-            'is_spv' => $this->request->getPost('is_spv'),
             'spvid' => $this->request->getPost('spvid'),
             'kasacabid' => $this->request->getPost('kasacabid'),
-            'created_date' => date('Y-m-d H:i:s'),
+            'is_active' => 0,
+            'is_loginable' => 0,
+            'created_date' => date("Y-m-d H:i:s"),
             'created_by' => session()->get('nama'),
-            'updated_date' => date('Y-m-d H:i:s'),
-            'updated_by' => session()->get('nama'),
+            'updated_date' => date("Y-m-d H:i:s"),
+            'updated_by' => session()->get('nama')
         ];
         $query = $this->user->tambah($data);
         if ($query) {

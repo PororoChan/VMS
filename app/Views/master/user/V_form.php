@@ -2,7 +2,7 @@
     <div class='form-group'>
         <label for='user'>Username<span class="text-danger">*</span> :</label>
         <input type="hidden" name="id" id="id" value="<?= $id ?>">
-        <input type='text' class='form-control' name="user" id="user" value="<?= (($form_type == 'edit') ? $row['user'] : '') ?>">
+        <input type='text' class='form-control' name="username" id="username" value="<?= (($form_type == 'edit') ? $row['user'] : '') ?>">
     </div>
 
     <div class='form-group'>
@@ -14,12 +14,12 @@
     <div class="form-group">
         <label for="pass">Password<span class="text-danger">*</span> :</label>
         <input type="hidden" name="password_lama" id="password_lama" value="<?= (($form_type == 'edit') ? $row['pass'] : '') ?>">
-        <input type="password" class="form-control" name="pass" id="pass" <?= (($form_type == 'edit') ? '' : 'required') ?>>
+        <input type="password" class="form-control" name="password" id="password" <?= (($form_type == 'edit') ? '' : 'required') ?>>
     </div>
 
     <div class="form-group">
         <label for="full">Group<span class="text-danger">*</span> :</label>
-        <input type="text" class="form-control" name="group" id="group" value="<?= (($form_type == 'edit') ? $row['group'] : '') ?>">
+        <input type="text" class="form-control" name="groupnum" id="groupnum" value="<?= (($form_type == 'edit') ? $row['group'] : '') ?>">
     </div>
 
     <div class="form-group">
@@ -30,7 +30,7 @@
 
     <div class="form-group">
         <label for="companyid">Area<span class="text-danger">*</span> :</label>
-        <select class="form-control" name="area" id="area" style="padding:6px;width: 100%;" required>
+        <select class="form-control" name="area" id="area" style="padding:6px;width: 100%;">
             <?php if ($form_type == "edit") { ?>
                 <option value="<?= $row['area'] ?>"><?= $row['area'] ?></option>
             <?php } ?>
@@ -102,21 +102,20 @@
                         $check = '';
                     } ?>
                     <input type="checkbox" name="is_spv" value="1" id='is_spv' <?= $check ?>>
-                <?php } ?>
                 </div>
+            <?php } ?>
+            <div class='form-group'>
+                <div class='modal-body text-right' style="padding-right: 0px;">
+                    <button type='button' class='btn btn-secondary' data-dismiss='modal'>Cancel</button>
+                    <button type='button' style='margin-left: 5px' id='button_process' class='btn btn-primary'>Save</button>
                 </div>
-                <div class='form-group'>
-                    <div class='modal-body text-right' style="padding-right: 0px;">
-                        <button type='button' class='btn btn-secondary' data-dismiss='modal'>Cancel</button>
-                        <button type='button' style='margin-left: 5px' id='button_process' class='btn btn-primary'>Save</button>
-                    </div>
-                </div>
+            </div>
 </form>
 <script>
     $(document).ready(function() {
         $('#button_process').on('click', function() {
-            let form = $('#formuser')[0];
-            let data = new FormData(form);
+            var form = $('#formuser')[0];
+            var dt = new FormData(form);
             var form_type = "<?= $form_type ?>";
             var link = "<?= base_url('user/addData') ?>";
             var process = 'tambah';
@@ -127,7 +126,7 @@
             $.ajax({
                 type: 'post',
                 url: link,
-                data: data,
+                data: dt,
                 processData: false,
                 contentType: false,
                 cache: false,
@@ -140,7 +139,8 @@
                     } else {
                         $.notify('Data Gagal Di' + process, 'error');
                         setTimeout(function() {
-                            window.location.href = e.redirect;
+                            console.log(response)
+                            // window.location.href = e.redirect;
                         }, 100);
                     }
                 },
