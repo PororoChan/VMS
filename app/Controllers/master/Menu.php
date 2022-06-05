@@ -15,13 +15,15 @@ class Menu extends BaseController
     }
     public function index()
     {
+        $session = session();
         $data = [
-            "sidebar" => $this->msmenu->get_master_sidebar(session()->get('id_user')),
+            "sidebar" => $this->msmenu->get_master_sidebar($session->get('id_user')),
             "menuside" => $this->msmenu,
         ];
-        if (session()->get('id_user') == null) {
+        if ($session->get('id_user') == null) {
             return redirect()->to(base_url('login'));
         }
+        $data['dt'] = $this->msmenu->get_master_sidebar($session->get('id_user'));
         return view('master/msmenu/V_msmenu', $data);
     }
 
@@ -44,25 +46,25 @@ class Menu extends BaseController
                 $db->updateddate,
                 $db->updatedby,
                 $db->isactive,
-                "<button type='button' class='btn btn-sm btn-warning eee' onclick=\"modalGlobal('Edit Master Menu', 'modal-lg', '" . base_url('menu/EditViews/' . $db->menuid . '/' . $db->masterid) . "');\"><i class='fas fa-pencil-alt'></i></button> " .
-                    " <button type='button' class='btn btn-sm btn-danger hhh' onclick=\"deleteGlobal('Hapus Master Menu', 'modal-lg', '" . $db->menuid . "', '" . base_url('menu/deleteData') . "', '" . base_url('/menu') . "')\"><i class='far fa-trash-alt'></i></button>",
+                "<a type='button' class='btn btn-sm btn-warning eee' href='" . base_url('menu/EditViews/' . $db->menuid . '/' . $db->masterid . '') . "'><i class='fas fa-pencil-alt'></i></a> " .
+                    " <button type='button' class='btn btn-sm btn-danger hhh' onclick=\"deleteGlobal('VMS', 'Anda yakin ingin hapus menu ?', 'modal-lg', '" . $db->menuid . "', '" . base_url('menu/deleteData') . "', '" . base_url('/menu') . "', 'Hapus')\"><i class='far fa-trash-alt'></i></button>",
             ];
         });
         $datatables->toJson();
     }
     public function FormViews($menuid = '', $masterid = 0)
     {
-        $form_type = 'add';
+        $form_type = 'Add';
         if ($menuid != '') {
-            $form_type = 'edit';
+            $form_type = 'Edit';
         }
         $data = [
             'form_type' => $form_type,
             'row' => $this->msmenu->get_one($menuid, $masterid),
             'menuid' => $menuid
         ];
-        $tes['view'] = view('master/msmenu/V_form', $data);
-        echo json_encode($tes);
+
+        return view('master/msmenu/V_form', $data);
     }
     public function getMaster()
     {

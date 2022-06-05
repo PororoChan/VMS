@@ -146,7 +146,7 @@
               url: link,
               data: data,
               success: function(response) {
-                  if (response == '1') {
+                  if (response == 1) {
                       $.notify('Data Berhasil Di' + process, 'success');
                       setTimeout(function() {}, 100);
                       accessgrouptable.ajax.reload();

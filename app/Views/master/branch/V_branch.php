@@ -7,10 +7,8 @@
         </div>
         <div class="section-body">
             <div class="card full-height">
-                <div class="card-header">
-                    <div class="card-body float-right text-right text-fixed">
-                        <button type="button" class="btn btn-lg btn-primary" style="margin-left: 800px;" id="buttonTambah" onclick="modalGlobal('Add Branch', 'modal-lg', '<?= base_url('branch/AddViews') ?>')">Add</button>
-                    </div>
+                <div class="card-header d-flex justify-content-end">
+                    <a class="btn btn-primary" style="margin-left: 800px;" href="<?= base_url('branch/AddViews') ?>" id="buttonTambah">Add</a>
                 </div>
                 <style>
                     @media (min-width: 500px) {

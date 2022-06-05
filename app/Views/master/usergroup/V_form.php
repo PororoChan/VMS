@@ -1,36 +1,58 @@
-<?= $this->include('inc_master/source_js') ?>
-<form>
-    <div class='form-group'>
-        <label for='nama'>Name<span class="text-danger">*</span> :</label>
-        <input type='text' class='form-control' name='groupname' id='groupname' value="<?= (($form_type == 'edit') ? $row['groupname'] : '') ?>" placeholder='Name' required>
-    </div>
-    <input type="hidden" name="groupid" id="groupid" value="<?= (($form_type == 'edit') ? $groupid : '') ?>">
-    <div class='form-group'>
-        <label for='isactive'>Is Active : </label><br>
-        <?php if ($form_type == "edit") {
-            if ($row['isactive'] == 't') {
-                $check = 'checked';
-            } else {
-                $check = '';
-            } ?>
-            <input type="checkbox" name="isactive" value="t" id='isactive' <?= $check ?>>
-        <?php } else { ?>
-            <input type="checkbox" name="isactive" value="t" id='isactive'>
-        <?php } ?>
-    </div>
-    <div class='modal-footer'>
-        <button type='button' class='btn btn-secondary' data-dismiss='modal'>Batal</button>
-        <button type='button' id='button_process' class='btn btn-primary'>Simpan</button>
-    </div>
-</form>
+<?= $this->include('inc_master/header') ?>
+<?= $this->include('inc_master/sidebar') ?>
+<div class="main-content">
+    <section class="section">
+        <div class="section-header">
+            <h1>VMS</h1>
+        </div>
+        <div class="section-body">
+            <div class="card full-height w-50">
+                <div class="card-header">
+                    <h5><?= $form_type ?> Usergroup</h5>
+                </div>
+                <div class="card-body">
+                    <form>
+                        <div class='form-group'>
+                            <label for='nama'>Name<span class="text-danger">*</span> :</label>
+                            <input type='text' class='form-control' name='groupname' id='groupname' value="<?= (($form_type == 'Edit') ? $row['groupname'] : '') ?>" placeholder='Name' required>
+                        </div>
+                        <input type="hidden" name="groupid" id="groupid" value="<?= (($form_type == 'Edit') ? $groupid : '') ?>">
+                        <div class='form-group'>
+                            <label for='isactive'>Is Active : </label><br>
+                            <?php if ($form_type == "Edit") {
+                                if ($row['isactive'] == 't') {
+                                    $check = 'checked';
+                                } else {
+                                    $check = '';
+                                } ?>
+                                <input type="checkbox" name="isactive" value="t" id='isactive' <?= $check ?>>
+                            <?php } else { ?>
+                                <input type="checkbox" name="isactive" value="t" id='isactive'>
+                            <?php } ?>
+                        </div>
+                        <div class='modal-footer'>
+                            <button type='button' class='btn btn-secondary' id="btn_cancel">Batal</button>
+                            <button type='button' id='btn-proses' class='btn btn-primary'>Save</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+<?= $this->include('inc_master/footer') ?>
 <script>
     $(document).ready(function() {
+        var type = "<?= $form_type ?>"
+        if (type != 'Add') {
+            $('#btn-proses').text('Update');
+        }
+
         $('#button_process').on('click', function() {
             var groupname = $('#groupname').val();
             var isactive = 'f';
             var csrfName = "<?= csrf_token() ?>"; // CSRF Token name
             var csrfHash = "<?= csrf_hash() ?>"; // CSRF hash
-            var form_type = "<?= $form_type ?>";
             if ($('#isactive').prop('checked') == true) {
                 isactive = $('#isactive').val();
             }
@@ -41,9 +63,9 @@
                 groupid: $('#groupid').val()
             };
             var process = 'tambah';
-            if (form_type == 'edit') {
+            if (type == 'Edit') {
                 link = "<?= base_url('usergroup/editData') ?>";
-                process = 'edit'
+                process = 'edit';
             }
             $.ajax({
                 type: 'post',
@@ -67,5 +89,9 @@
                 }
             });
         });
+
+        $('#btn_cancel').on('click', function() {
+            window.location.href = "<?= base_url('usergroup') ?>"
+        })
     });
 </script>

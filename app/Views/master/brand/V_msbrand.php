@@ -1,29 +1,29 @@
 <?= $this->include('inc_master/header') ?>
 <?= $this->include('inc_master/sidebar') ?>
+
 <div class="main-content">
     <section class="section">
         <div class="section-header">
-            <h1>Halaman Usergroup</h1>
+            <h1>Halaman Brand</h1>
         </div>
         <div class="section-body">
             <div class="card full-height">
                 <div class="card-header d-flex justify-content-end">
-                    <input type="hidden" id="txt_csrfname" name="<?= csrf_token() ?>" value="<?= csrf_hash() ?>" />
-                    <a class="btn btn-primary" id="buttonTambah" href="<?= base_url('usergroup/AddViews') ?>">Add</a>
+                    <a class="btn btn-primary" id="buttonTambah" href="<?= base_url('brand/AddViews') ?>">Add</a>
                 </div>
-                <div class="card-body table-responsive">
+                <div class="card-body">
                     <style>
-                        @media (min-width: 992px) {
+                        @media (min-width: 500px) {
 
                             .modal-lg,
                             .modal-xl {
-                                max-width: 800px;
+                                max-width: 550px;
                             }
                         }
 
-                        @media (min-width: 1200px) {
+                        @media (min-width: 600px) {
                             .modal-xl {
-                                max-width: 1140px;
+                                max-width: 660px;
                             }
                         }
                     </style>
@@ -32,18 +32,18 @@
                             <thead>
                                 <tr>
                                     <th>#</th>
-                                    <th>Name</th>
-                                    <th>Created Date</th>
-                                    <th>Created By</th>
-                                    <th>Updated Date</th>
-                                    <th>Updated By</th>
-                                    <th>Is Active</th>
+                                    <th>Item</th>
+                                    <th>Deskripsi</th>
+                                    <th>Brand</th>
+                                    <th>Bf big</th>
+                                    <th>BF</th>
+                                    <th>BF 2</th>
+                                    <th>BF 3</th>
+                                    <th>CartypeName</th>
+                                    <th>CartypeName 2</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
-                            <tbody>
-
-                            </tbody>
                         </table>
                     </div>
                 </div>

@@ -47,7 +47,7 @@ class Branch extends BaseController
                 $db->aliascode,
                 $db->kasacabid,
                 "
-                <button type='button' class='btn btn-sm btn-warning eee' onclick=\"modalGlobal('Edit Branch', 'modal-lg', '" . base_url('branch/EditViews/' . $db->branchid) . "')\"><i class='fas fa-pencil-alt'></i></button> " .
+                <a class='btn btn-sm btn-warning eee' href='" . base_url('branch/EditViews/' . $db->branchid . '') . "'><i class='fas fa-pencil-alt'></i></a> " .
                     " <button type='button' class='btn btn-sm btn-danger hhh' onclick=\"deleteGlobal('Delete Branch', 'modal-lg', '" . $db->branchid . "', '" . base_url('branch/deleteData') . "', '" . base_url('/branch') . "')\"><i class='far fa-trash-alt'></i></button>",
             ];
         });
@@ -78,17 +78,17 @@ class Branch extends BaseController
 
     public function FormViews($id = '')
     {
-        $form_type = 'add';
+        $form_type = 'Add';
         if ($id != '') {
-            $form_type = 'edit';
+            $form_type = 'Edit';
         }
         $data = [
             'form_type' => $form_type,
             'row' => $this->branch->get_one($id),
             'branchid' => $id
         ];
-        $tes['view'] = view('master/branch/V_form', $data);
-        echo json_encode($tes);
+
+        return view('master/branch/V_form', $data);
     }
     public function addData()
     {

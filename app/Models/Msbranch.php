@@ -32,9 +32,6 @@ class Msbranch extends Model
     public function getAllData($param, $text)
     {
         return $this->builder;
-        //->join('vmsmssecurity as u', 'b.created_by=u.userid')
-        //->join('vmsmssecurity as uu', 'b.updated_by=uu.userid');
-        //->join('msuserdt as ba', 'b.userid=ba.msuserdt');
     }
 
     public function getSel2($searchTerm)
@@ -47,7 +44,7 @@ class Msbranch extends Model
     public function get_one($id = '')
     {
         $x = $this->builder->select('b.branchid, b.isactive, b.branchcode, b.branchname, b.areacode, b.aliascode, b.kasacabid, a.usercode')
-            ->join('vmsmsuser as a', 'b.kasacabid = a.usercode');
+            ->join('vmsmsuser as a', 'b.kasacabid = a.usercode', 'left');
         if ($id != '') {
             $x->where('b.branchid', $id);
         }

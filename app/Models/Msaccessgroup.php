@@ -33,8 +33,8 @@ class Msaccessgroup extends Model
         return $this->builder
             ->select("msaccessgroup.accessgroupid, b.groupname, string_agg(d.menuname, ';') as list_menu, msaccessgroup.isactive as activated")
             ->join('msusergroup as b', 'b.groupid=msaccessgroup.usergroupid')
-            ->join('msaccessmenu as c', 'c.usergroupid=msaccessgroup.usergroupid')
-            ->join('msmenu as d', 'd.menuid=c.menuid')
+            ->join('msaccessmenu as c', 'c.usergroupid=msaccessgroup.usergroupid', 'LEFT')
+            ->join('msmenu as d', 'd.menuid=c.menuid', 'LEFT')
             ->where('msaccessgroup.userid', $userid)
             ->where('c.componentid', 1)
             ->groupBy('b.groupid')

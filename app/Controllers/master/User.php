@@ -10,6 +10,7 @@ use App\Models\Mscompany;
 use App\Models\Msmenu;
 use App\Models\Msuser;
 use App\Models\Msusergroup;
+use phpDocumentor\Reflection\Types\Null_;
 
 class User extends BaseController
 {
@@ -43,13 +44,14 @@ class User extends BaseController
                 $nomor,
                 $db->user,
                 $db->fullname,
+                $db->branchname,
                 $db->area,
                 $db->phone,
                 "
                 <button type='button' class='btn btn-sm btn-success eee' onclick=\"modalGlobal('Usergroup Setting - " . $db->user . "', 'modal-lg', '" . base_url('user/Accessgroup/' . $db->userid) . "')\"><i class='fas fa-users-cog'></i></button> 
-                <button type='button' class='btn btn-sm btn-warning eee' onclick=\"modalGlobal('Edit User', 'modal-lg', '" . base_url('user/EditViews/' . $db->id) . "')\"><i class='fas fa-pencil-alt'></i></button> " .
-                    " <button type='button' class='btn btn-sm btn-danger hhh' onclick=\"deleteGlobal('Hapus User', 'modal-lg', '" . $db->id . "', '" . base_url('user/deleteData') . "', '" . base_url('/user') . "')\"><i class='far fa-trash-alt'></i></button>
-                 <button type='button' class='btn btn-sm btn-primary hhh' onclick=\"deleteGlobal('Reset Deviceid', 'modal-lg', '" . $db->id . "', '" . base_url('user/resetData/') . "', '" . base_url('/user') . "')\"><i class='fas fa-sync'></button>",
+                <a class='btn btn-sm btn-warning eee' href='" . base_url('user/EditViews/' . $db->id . '') . "')\"><i class='fas fa-pencil-alt'></i></a> " .
+                    " <button type='button' class='btn btn-sm btn-danger hhh' onclick=\"deleteGlobal('VMS', 'Anda yakin ingin menghapus user ?', 'modal-lg', '" . $db->id . "', '" . base_url('user/deleteData') . "', '" . base_url('/user') . "', 'Hapus')\"><i class='far fa-trash-alt'></i></button>
+                 <button type='button' class='btn btn-sm btn-primary hhh' onclick=\"deleteGlobal('VMS', 'Anda yakin ingin mereset device ?', 'modal-lg', '" . $db->id . "', '" . base_url('user/resetData/') . "', '" . base_url('/user') . "', 'Reset')\"><i class='fas fa-sync'></button>",
             ];
         });
         $datatables->toJson();
@@ -87,9 +89,9 @@ class User extends BaseController
 
     public function FormViews($id = '')
     {
-        $form_type = 'add';
+        $form_type = 'Add';
         if ($id != '') {
-            $form_type = 'edit';
+            $form_type = 'Edit';
         }
 
         $data = [
@@ -97,8 +99,7 @@ class User extends BaseController
             'row' => $this->user->get_one($id),
             'id' => $id
         ];
-        $tes['view'] = view('master/user/V_form', $data);
-        echo json_encode($tes);
+        return view('master/user/V_form', $data);
     }
 
     public function resetData()
@@ -117,7 +118,7 @@ class User extends BaseController
         $data = [
             'user' => $this->request->getPost('username'),
             'ssn' => $this->request->getPost('ssn'),
-            'pass' => $this->request->getPost('password'),
+            'pass' => password_hash($this->request->getPost('password'), PASSWORD_BCRYPT),
             'group' => $this->request->getPost('groupnum'),
             'fullname' => $this->request->getPost('fullname'),
             'area' => $this->request->getPost('area'),
@@ -142,27 +143,48 @@ class User extends BaseController
     public function editData()
     {
         $password = $this->request->getPost('password_lama');
+        $active = '';
+        $loginable = '';
+        $spv = Null;
+        $ksc = Null;
+
         if ($this->request->getPost('pass') != '') {
             $password = password_hash($this->request->getPost('pass'), PASSWORD_BCRYPT);
         }
+        if ($this->request->getPost('is_active') != '') {
+            $active = 1;
+        } else {
+            $active = 0;
+        }
+        if ($this->request->getPost('is_loginable') != '') {
+            $loginable = 1;
+        } else {
+            $loginable = 0;
+        }
+        if ($this->request->getPost('spvid') == '') {
+            $spv = Null;
+        }
+        if ($this->request->getPost('kasacabid') == '') {
+            $ksc = Null;
+        }
         $userid = $this->request->getPost('id');
         $data = [
-            'user' => $this->request->getPost('user'),
+            'user' => $this->request->getPost('username'),
             'pass' => $password,
             'ssn' => $this->request->getPost('ssn'),
-            'group' => $this->request->getPost('group'),
+            'group' => $this->request->getPost('groupnum'),
             'fullname' => $this->request->getPost('fullname'),
-            'is_loginable' => $this->request->getPost('is_loginable'),
-            'is_active' => $this->request->getPost('is_active'),
+            'is_loginable' => $loginable,
+            'is_active' => $active,
+            'is_spv' => $this->request->getPost('is_spv'),
             'area' => $this->request->getPost('area'),
             'userid' => $this->request->getPost('userid'),
             'phone' => $this->request->getPost('phone'),
             'deviceid' => $this->request->getPost('deviceid'),
-            'is_spv' => $this->request->getPost('is_spv'),
-            'spvid' => $this->request->getPost('spvid'),
-            'kasacabid' => $this->request->getPost('kasacabid'),
+            'spvid' => $spv,
+            'kasacabid' => $ksc,
             'updated_date' => date('Y-m-d H:i:s'),
-            'updated_by' => session()->get('id_user'),
+            'updated_by' => session()->get('nama'),
         ];
         $query = $this->user->edit($data, $userid);
         if ($query) {
@@ -215,7 +237,7 @@ class User extends BaseController
         $datatables = Datatables::method([Msaccessgroup::class, 'datatabel'], 'searchable')
             ->setParams($userid)
             ->make();
-        //        echo db_connect()->showLastQuery();
+
         $datatables->updateRow(function ($db, $nomor) {
             if ($db->activated != 't') {
                 $check = '';
@@ -236,8 +258,9 @@ class User extends BaseController
     }
     public function deleteaccessgroup()
     {
-        $accessgroupid = $this->request->getPost('usergroupid');
+        $accessgroupid = $this->request->getPost('accessgroupid');
         $this->Msaccessgroup->hapus($accessgroupid);
+
         echo 1;
     }
     public function Editaccessgroup()

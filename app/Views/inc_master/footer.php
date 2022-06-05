@@ -33,11 +33,10 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <div class="modal-body">
-                Apakah anda yakin untuk menghapus data ini ?
-                <div id="delete-id">
+            <div class="modal-body" id="deleteModal">
+            </div>
+            <div id="delete-id">
 
-                </div>
             </div>
             <div class="modal-footer">
                 <button type='button' class='btn btn-secondary' data-dismiss='modal'>Batal</button>
@@ -72,29 +71,20 @@
 <!-- General JS Scripts -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.nicescroll/3.7.6/jquery.nicescroll.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
-<script src="<?= base_url('public/assets/js/stisla.js') ?>"></script>
-<script src="<?= base_url('public/assets/js/select2.min.js') ?>"></script>
-<script src="<?= base_url('public/assets/datatable/jquery.dataTables.min.js') ?>"></script>
-<script src="<?= base_url('public/assets/datatable/datatables.min.js') ?>"></script>
-<script src="<?= base_url('public/assets/datatable/dataTables.buttons.min.js') ?>"></script>
-<!-- JS Libraies -->
 
-<!-- Template JS File -->
-<script src="<?= base_url('public/assets/js/scripts.js') ?>"></script>
-<script src="<?= base_url('public/assets/js/modal.js') ?>"></script>
-<script src="<?= base_url('public/assets/js/custom.js') ?>"></script>
-<script src="<?= base_url('public/assets/js/notify.js') ?>"></script>
 <script>
     var csrfName = "<?= csrf_token() ?>";
     var csrfHash = $('#txt_csrfname').val();
 
-    function deleteGlobal(title, size, id, link, page) {
+    function deleteGlobal(title, desc, size, id, link, page, btntext) {
         // Add response in Modal body
         $("#modal-size-delete").removeClass('modal-lg', 'modal-sm', 'modal-xl');
         $("#modal-size-delete").addClass(size);
         // Display Modal
         $('#modaldelete').modal('show');
         $('#modal-title-delete').text(title);
+        $('#deleteModal').text(desc);
+        $('#button_delete').text(btntext);
         $('#delete-id').append("<input type='hidden' id='id-delete' value='" + id + "'>");
         $('#delete-id').append("<input type='hidden' id='id-link' value='" + link + "'>");
         $('#delete-id').append("<input type='hidden' id='id-page' value='" + page + "'>");
@@ -124,7 +114,7 @@
                 // Add response in Modal body
                 $("#modal-size").removeClass('modal-lg', 'modal-sm', 'modal-xl');
                 $("#modal-size").addClass(size);
-                $('.modal-crud').html(response.view); // Display Modal
+                $('#bodycrud').html(response.view); // Display Modal
                 $('#txt_csrfname').val(response.token);
                 $('#modalcrud').modal('show');
                 $('#modal_title').text(title);
@@ -178,15 +168,13 @@
                 success: function(response) {
                     if (response == '1') {
                         $.notify('Data Berhasil Dihapus', 'success');
-                        setTimeout(function() {}, 1);
-                        $('#modaldelete').modal('toggle');
-                        table.ajax.reload();
+                        setTimeout(function() {
+                            table.ajax.reload();
+                        }, 1);
                     } else {
                         $.notify('Data Gagal Dihapus', 'error');
-                        setTimeout(function() {
-                            window.location.href = e.redirect;
-                        }, 1);
                     }
+                    $('#modaldelete').modal('toggle');
                 },
                 error: function(xhr, ajaxOptions, thrownError) {
                     alert('gagal');

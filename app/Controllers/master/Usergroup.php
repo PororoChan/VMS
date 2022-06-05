@@ -47,17 +47,17 @@ class Usergroup extends BaseController
                 $db->updatedby,
                 $db->isactive,
                 " <button type='button' class='btn btn-sm btn-success eee' onclick=\"modalGlobal('Akses Usergroup - " . $db->groupname . "', 'modal-xl', '" . base_url('usergroup/AccessViews/' . $db->groupid) . "')\"><i class='fas fa-user-cog'></i></button> " .
-                    " <button type='button' class='btn btn-sm btn-warning eee' onclick=\"modalGlobal('Edit Usergroup', 'modal-lg', '" . base_url('usergroup/EditViews/' . $db->groupid) . "')\"><i class='fas fa-pencil-alt'></i></button> " .
-                    " <button type='button' class='btn btn-sm btn-danger hhh' onclick=\"deleteGlobal('Hapus Usergroup', 'modal-lg', '" . $db->groupid . "', '" . base_url('usergroup/deleteData') . "', '" . base_url('/usergroup') . "')\"><i class='far fa-trash-alt'></i></button>",
+                    " <a class='btn btn-sm btn-warning eee' href='" . base_url('usergroup/EditViews/' . $db->groupid . '') . "'><i class='fas fa-pencil-alt'></i></a> " .
+                    " <button type='button' class='btn btn-sm btn-danger hhh' onclick=\"deleteGlobal('VMS', 'Anda yakin ingin hapus usergroup ?', 'modal-md', '" . $db->groupid . "', '" . base_url('usergroup/deleteData') . "', '" . base_url('/usergroup') . "', 'Hapus')\"><i class='far fa-trash-alt'></i></button>",
             ];
         });
         $datatables->toJson();
     }
     public function FormViews($groupid = '')
     {
-        $form_type = 'add';
+        $form_type = 'Add';
         if ($groupid != '') {
-            $form_type = 'edit';
+            $form_type = 'Edit';
         }
         $data = [
             'form_type' => $form_type,
@@ -65,17 +65,16 @@ class Usergroup extends BaseController
             'groupid' => $groupid
         ];
 
-        $tes['view'] = view('master/usergroup/V_form', $data);
-        echo json_encode($tes);
+        return view('master/usergroup/v_form', $data);
     }
-    public function sidebar1($id_menu)
-    {
-        echo "<li class='nav-item dropdown'>";
-        if ($this->menu->checkMenu($id_menu)->countAllResults() > 0) {
-        } else {
-        }
-        echo "</li>";
-    }
+    // public function sidebar1($id_menu)
+    // {
+    //     echo "<li class='nav-item dropdown'>";
+    //     if ($this->menu->checkMenu($id_menu)->countAllResults() > 0) {
+    //     } else {
+    //     }
+    //     echo "</li>";
+    // }
     public function addData()
     {
         $data = [
@@ -107,7 +106,6 @@ class Usergroup extends BaseController
     }
     public function editData()
     {
-
         $groupid = $this->request->getPost('groupid');
         $data = [
             'groupname' => $this->request->getPost('groupname'),

@@ -43,11 +43,12 @@ $routes->add('logout', 'Login::logout');
 $routes->add('usergroup', 'master\Usergroup::index');
 $routes->add('menu', 'master\Menu::index');
 $routes->add('user', 'master\User::index');
+$routes->add('brand', 'master\Brand::index');
 $routes->add('branch', 'master\Branch::index');
-$routes->add('customer', 'master\Customer::index');
-$routes->add('area', 'master\Area::index');
-$routes->add('alias', 'master\Alias::index');
-$routes->add('schedule', 'master\Schedule::index');
+$routes->add('customer', 'master\Customer::index'); // tabel vmsmscustomer 404
+$routes->add('area', 'master\Area::index'); // tabel vmsmsareacode 404
+$routes->add('alias', 'master\Alias::index'); // tabel vmsmsaliascode 404
+$routes->add('schedule', 'master\Schedule::index'); // tabel vmsmsschedule 404
 
 /** MODAL FORM **/
 //Usergroup
@@ -57,6 +58,9 @@ $routes->add('usergroup/AccessViews/(:num)', 'master\Usergroup::AccessViews/$1')
 //Master Menu
 $routes->add('menu/AddViews', 'master\Menu::FormViews');
 $routes->add('menu/EditViews/(:num)/(:num)', 'master\Menu::FormViews/$1/$2');
+// Brand
+$routes->add('brand/AddViews', 'master\Brand::FormViews');
+$routes->add('brand/EditViews/(:any)', 'master\Brand::FormViews/$1');
 //Branch
 $routes->add('branch/AddViews', 'master\Branch::FormViews');
 $routes->add('branch/EditViews/(:any)', 'master\Branch::FormViews/$1');
@@ -92,6 +96,11 @@ $routes->add('usergroup/accessData', 'master\Usergroup::accessData');
 $routes->add('menu/addData', 'master\Menu::addData');
 $routes->add('menu/editData', 'master\Menu::editData');
 $routes->add('menu/deleteData', 'master\Menu::deleteData');
+
+// Brand Menu
+$routes->add('brand/addBrand', 'master\Brand::addBrand');
+$routes->add('brand/editBrand', 'master\Brand::editBrand');
+$routes->add('brand/deleteBrand', 'master\Brand::deleteBrand');
 
 //Branch Menu
 $routes->add('branch/addData', 'master\Branch::addData');
@@ -134,6 +143,7 @@ $routes->add('usergroup/datatabel', 'master\Usergroup::datatabel');
 $routes->add('menu/datatabel', 'master\Menu::datatabel');
 $routes->add('user/datatabel', 'master\User::datatabel');
 $routes->add('branch/datatabel', 'master\Branch::datatabel');
+$routes->add('brand/datatabel', 'master\Brand::datatabel');
 $routes->add('branch/datatabel/(:any)', 'master\Branch::datatabel/$1');
 $routes->add('customer/datatabel', 'master\Customer::datatabel');
 $routes->add('customer/datatabel/(:any)', 'master\Customer::datatabel/$1');

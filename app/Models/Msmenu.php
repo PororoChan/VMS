@@ -50,7 +50,7 @@ class Msmenu extends Model
         if ($id != '') {
             if ($masterid != 0) {
                 $x = $this->builder->select('a.menuid, a.menuname, a.masterid, a.menulink, a.seq, a.menuicon, a.isactive, a.createddate, a.updateddate, ms.menuname as master, ms.masterid as msid')
-                    ->join('msmenu as ms', 'ms.menuid=a.masterid');
+                    ->join('msmenu as ms', 'ms.menuid=a.masterid', 'left');
             }
             $x->where('a.menuid', $id);
         }
@@ -82,7 +82,7 @@ class Msmenu extends Model
             ->where('msaccessgroup.userid', session()->get('id_user'))
             ->groupBy('msaccessmenu.menuid')
             ->groupBy('a.menuid')
-            ->orderBy('a.seq', 'asc');
+            ->orderBy('a.seq', 'asc')->get()->getResultArray();
     }
     public function get_master()
     {
@@ -93,7 +93,7 @@ class Msmenu extends Model
     public function checkMenu($masterid)
     {
         return $this->builder->where('masterid', $masterid)
-            ->orderBy('seq', 'asc');
+            ->orderBy('seq', 'asc')->countAllResults();
     }
     public function tambah($data)
     {

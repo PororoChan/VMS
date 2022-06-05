@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Models\Msuser;
+use DateTime;
 
 /**
  * @property IncomingRequest $request
@@ -45,7 +46,14 @@ class Login extends BaseController
     }
     public function logout()
     {
-        session()->destroy();
-        return redirect()->to(base_url('login'));
+        $date = new DateTime('NOW');
+        $id = session()->get('id_user');
+        $dt = ['lastactive' => $date->format('Y-m-d H:i:s.u')];
+        $q = $this->user->edit($dt, $id);
+
+        if ($q) {
+            session()->destroy();
+            return redirect()->to(base_url('login'));
+        }
     }
 }

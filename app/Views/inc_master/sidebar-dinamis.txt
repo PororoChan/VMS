@@ -1,0 +1,16 @@
+<?php foreach ($sidebar as $sd) { ?>
+                <?php if ($menuside->checkMenu($sd['menuicon']) > 0) { ?>
+                    <li class="nav-item dropdown">
+                        <a href="#" class="nav-link has-dropdown"><i class="<?= $sd['menuicon'] ?>"></i><span><?= $sd['menuname'] ?></span></a>
+                        <ul class="dropdown-menu">
+                            <?php foreach ($menuside->checkMenu_sidebar($sd['menuid']) as $submenu) { ?>
+                                <li><a class="nav-link" href="<?= base_url($submenu['menulink']) ?>"><?= $submenu['menuname'] ?></a></li>
+                            <?php } ?>
+                        </ul>
+                    </li>
+                <?php } else { ?>
+                    <li class="nav-item dropdown">
+                        <a href="<?= base_url($sd['menulink']) ?>" class="nav-link"><i class="<?= $sd['menuicon'] ?>"></i><span><?= $sd['menuname'] ?></span></a>
+                    </li>
+                <?php } ?>
+            <?php } ?>
