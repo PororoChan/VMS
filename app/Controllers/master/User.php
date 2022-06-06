@@ -5,12 +5,11 @@ namespace App\Controllers\master;
 use App\Controllers\BaseController;
 use App\Helpers\Datatables\Datatables;
 use App\Models\Msaccessgroup;
-use App\Models\Msaccessmenu;
-use App\Models\Mscompany;
 use App\Models\Msmenu;
 use App\Models\Msuser;
 use App\Models\Msusergroup;
-use phpDocumentor\Reflection\Types\Null_;
+use CodeIgniter\Entity\Cast\DatetimeCast;
+use DateTime;
 
 class User extends BaseController
 {
@@ -35,10 +34,10 @@ class User extends BaseController
     }
     public function datatabel()
     {
-        $datatables = Datatables::method([Msuser::class, 'getAllData'], 'searchable')
+        $datatables = Datatables::method([Msuser::class, 'getAll'], 'searchable')
             ->setParams(1, 'kedua')
             ->make();
-        //        echo db_connect()->showLastQuery();
+
         $datatables->updateRow(function ($db, $nomor) {
             return [
                 $nomor,
@@ -49,11 +48,12 @@ class User extends BaseController
                 $db->phone,
                 "
                 <button type='button' class='btn btn-sm btn-success eee' onclick=\"modalGlobal('Usergroup Setting - " . $db->user . "', 'modal-lg', '" . base_url('user/Accessgroup/' . $db->userid) . "')\"><i class='fas fa-users-cog'></i></button> 
-                <a class='btn btn-sm btn-warning eee' href='" . base_url('user/EditViews/' . $db->id . '') . "')\"><i class='fas fa-pencil-alt'></i></a> " .
-                    " <button type='button' class='btn btn-sm btn-danger hhh' onclick=\"deleteGlobal('VMS', 'Anda yakin ingin menghapus user ?', 'modal-lg', '" . $db->id . "', '" . base_url('user/deleteData') . "', '" . base_url('/user') . "', 'Hapus')\"><i class='far fa-trash-alt'></i></button>
-                 <button type='button' class='btn btn-sm btn-primary hhh' onclick=\"deleteGlobal('VMS', 'Anda yakin ingin mereset device ?', 'modal-lg', '" . $db->id . "', '" . base_url('user/resetData/') . "', '" . base_url('/user') . "', 'Reset')\"><i class='fas fa-sync'></button>",
+                <a class='btn btn-sm btn-warning eee' href='" . base_url('user/EditViews/' . $db->ids . '') . "')\"><i class='fas fa-pencil-alt'></i></a> " .
+                    " <button type='button' class='btn btn-sm btn-danger hhh' onclick=\"deleteGlobal('VMS', 'Anda yakin ingin menghapus user ?', 'modal-lg', '" . $db->ids . "', '" . base_url('user/deleteData') . "', '" . base_url('/user') . "', 'Hapus')\"><i class='far fa-trash-alt'></i></button>
+                 <button type='button' class='btn btn-sm btn-primary hhh' onclick=\"deleteGlobal('VMS', 'Anda yakin ingin mereset device ?', 'modal-lg', '" . $db->ids . "', '" . base_url('user/resetData/') . "', '" . base_url('/user') . "', 'Reset')\"><i class='fas fa-sync'></button>",
             ];
         });
+
         $datatables->toJson();
     }
     public function getUser()
@@ -86,7 +86,6 @@ class User extends BaseController
         }
         echo json_encode($response);
     }
-
     public function FormViews($id = '')
     {
         $form_type = 'Add';
@@ -101,7 +100,6 @@ class User extends BaseController
         ];
         return view('master/user/V_form', $data);
     }
-
     public function resetData()
     {
         $id = $this->request->getPost('id');
@@ -115,6 +113,7 @@ class User extends BaseController
     }
     public function addData()
     {
+        $date = new DateTime('NOW');
         $data = [
             'user' => $this->request->getPost('username'),
             'ssn' => $this->request->getPost('ssn'),
@@ -128,9 +127,9 @@ class User extends BaseController
             'kasacabid' => $this->request->getPost('kasacabid'),
             'is_active' => 0,
             'is_loginable' => 0,
-            'created_date' => date("Y-m-d H:i:s"),
+            'created_date' => $date->format("Y-m-d H:i:s.u"),
             'created_by' => session()->get('nama'),
-            'updated_date' => date("Y-m-d H:i:s"),
+            'updated_date' => $date->format("Y-m-d H:i:s.u"),
             'updated_by' => session()->get('nama')
         ];
         $query = $this->user->tambah($data);
@@ -145,8 +144,7 @@ class User extends BaseController
         $password = $this->request->getPost('password_lama');
         $active = '';
         $loginable = '';
-        $spv = Null;
-        $ksc = Null;
+        $date = new DateTime('NOW');
 
         if ($this->request->getPost('pass') != '') {
             $password = password_hash($this->request->getPost('pass'), PASSWORD_BCRYPT);
@@ -160,12 +158,6 @@ class User extends BaseController
             $loginable = 1;
         } else {
             $loginable = 0;
-        }
-        if ($this->request->getPost('spvid') == '') {
-            $spv = Null;
-        }
-        if ($this->request->getPost('kasacabid') == '') {
-            $ksc = Null;
         }
         $userid = $this->request->getPost('id');
         $data = [
@@ -181,9 +173,9 @@ class User extends BaseController
             'userid' => $this->request->getPost('userid'),
             'phone' => $this->request->getPost('phone'),
             'deviceid' => $this->request->getPost('deviceid'),
-            'spvid' => $spv,
-            'kasacabid' => $ksc,
-            'updated_date' => date('Y-m-d H:i:s'),
+            'spvid' => $this->request->getPost('spvid'),
+            'kasacabid' => $this->request->getPost('kasacabid'),
+            'updated_date' => $date->format('Y-m-d H:i:s.u'),
             'updated_by' => session()->get('nama'),
         ];
         $query = $this->user->edit($data, $userid);

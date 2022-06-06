@@ -55,7 +55,7 @@
                         </div>
 
                         <div class="row">
-                            <div class="form-group col-4">
+                            <div class="form-group col-3">
                                 <label for="companyid">User<span class="text-danger">*</span> :</label>
                                 <select class="form-control" name="userid" id="userid" style="padding:6px;width: 100%;" required>
                                     <?php if ($form_type == "Edit") { ?>
@@ -63,7 +63,7 @@
                                     <?php } ?>
                                 </select>
                             </div>
-                            <div class="form-group col-4">
+                            <div class="form-group col-3">
                                 <label for="companyid">Spv<span class="text-danger">*</span> :</label>
                                 <select class="form-control" name="spvid" id="spvid" style="padding:6px;width: 100%;" required>
                                     <?php if ($form_type == "Edit") { ?>
@@ -71,7 +71,7 @@
                                     <?php } ?>
                                 </select>
                             </div>
-                            <div class="form-group col-4">
+                            <div class="form-group col-3">
                                 <label for="companyid">Kasacab<span class="text-danger">*</span> :</label>
                                 <select class="form-control" name="kasacabid" id="kasacabid" style="padding:6px;width: 100%;" required>
                                     <?php if ($form_type == "Edit") { ?>
@@ -79,8 +79,15 @@
                                     <?php } ?>
                                 </select>
                             </div>
+                            <div class="form-group col-3">
+                                <label for="companyid">Branch<span class="text-danger">*</span> :</label>
+                                <select class="form-control" name="branchid" id="branchid" style="padding: 6px; width: 100%" required>
+                                    <?php if ($form_type == "Edit") { ?>
+                                        <option value="<?= $row['bc'] ?>"><?= $row['bn'] ?></option>
+                                    <?php } ?>
+                                </select>
+                            </div>
                         </div>
-
 
                         <?php if ($form_type == "Edit") { ?>
                             <div class='form-group'>
@@ -120,7 +127,7 @@
                                 <div class='form-group'>
                                     <div class='modal-body text-right' style="padding-right: 0px;">
                                         <button type='button' class='btn btn-secondary' id="btn_cancel">Cancel</button>
-                                        <button type='button' style='margin-left: 5px' id='button_process' class='btn btn-primary'>Save</button>
+                                        <button type='button' style='margin-left: 5px' id='btn-proses' class='btn btn-primary'>Save</button>
                                     </div>
                                 </div>
                     </form>
@@ -132,13 +139,19 @@
 <?= $this->include('inc_master/footer') ?>
 <script>
     $(document).ready(function() {
-        $('#button_process').on('click', function() {
+        var type = "<?= $form_type ?>"
+        if (type == 'Add') {
+            $('#btn-proses').text('Save');
+        } else if (type == 'Edit') {
+            $('#btn-proses').text('Update');
+        }
+
+        $('#btn-proses').on('click', function() {
             var form = $('#formuser')[0];
             var dt = new FormData(form);
-            var form_type = "<?= $form_type ?>";
             var link = "<?= base_url('user/addData') ?>";
             var process = 'tambah';
-            if (form_type == 'Edit') {
+            if (type == 'Edit') {
                 link = "<?= base_url('user/editData') ?>";
                 process = 'edit'
             }
@@ -246,5 +259,24 @@
                 cache: true
             }
         });
+        $("#branchid").select2({
+            ajax: {
+                url: '<?= base_url('branch/getBranch') ?>',
+                type: 'post',
+                dataType: 'json',
+                delay: 250,
+                data: function(params) {
+                    return {
+                        searchTerm: params.term // search term
+                    }
+                },
+                processResults: function(res) {
+                    return {
+                        results: res
+                    };
+                },
+                cache: true
+            }
+        })
     });
 </script>

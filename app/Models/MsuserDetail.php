@@ -18,7 +18,7 @@ class MsuserDetail extends Model
         return [
             null,
             "b.usercode",
-            null,
+            "b.fullname",
             null,
             null,
             null,
@@ -32,9 +32,7 @@ class MsuserDetail extends Model
     public function getAllData($param, $text)
     {
         return $this->builder
-        ->join('vmsmsbranch as u', 'b.branchid = u.branchcode');
-        //->join('vmsmssecurity as uu', 'b.updated_by=uu.userid');
-        //->join('msuserdt as ba', 'b.userid=ba.msuserdt');
+            ->join('vmsmsbranch as u', 'b.branchid = u.branchcode');
     }
     public function cek($user)
     {

@@ -118,9 +118,10 @@
 
                     } else {
                         $.notify('Data Berhasil Di' + process, 'success');
-                        setTimeout(function() {}, 100);
-                        $('#modalcrud').modal('toggle');
-                        table.ajax.reload();
+                        setTimeout(function() {
+                            table.ajax.reload();
+                            window.location.href = "<?= base_url('branch') ?>"
+                        }, 100);
                     }
                 },
                 error: function(xhr, ajaxOptions, thrownError) {
@@ -128,6 +129,10 @@
                 }
             });
         });
+
+        $('#btn-cancel').on('click', function() {
+            window.location.href = "<?= base_url('branch') ?>"
+        })
 
         $("#aliascode").select2({
             ajax: {

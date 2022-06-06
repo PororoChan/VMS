@@ -24,7 +24,7 @@ class Msuser extends Model
             "b.fullname",
             "b.area",
             "b.phone",
-            "r.branchname",
+            null,
             null,
             null,
             null,
@@ -34,11 +34,12 @@ class Msuser extends Model
         ];
     }
 
-    public function getAllData($param, $text)
+    public function getAll($param, $text)
     {
-        return $this->builder->distinct('b.id, b.userid, b.user, b.fullname, b.area, b.phone, r.branchname')
-            ->join('vmsmsuser as u', 'b.userid=u.usercode')
-            ->join('vmsmsbranch as r', 'r.branchcode=u.branchid');
+        return $this->builder->distinct()
+            ->select('b.id as ids, b.userid, b.user, b.fullname, r.branchname, b.area, b.phone')
+            ->join('vmsmsuser as u', 'u.usercode = b.userid')
+            ->join('vmsmsbranch as r', 'u.branchid = r.branchcode');
     }
     public function cek($user)
     {
@@ -55,10 +56,14 @@ class Msuser extends Model
 
     public function get_one($id = '')
     {
-        $x = $this->builder->select(' b.id, b.user, b.fullname as fulname, b.pass, b.ssn, b.group, b.area, s.id as usrcod, v.id as usrcode, a.usercode, a.fullname, v.fullname as fullnames, s.fullname as fullnamess, b.phone, b.spvid, b.kasacabid, b.is_active, b.is_loginable, b.is_spv')
+        $x = $this->builder
+            ->select('b.id, b.user, b.fullname as fulname, b.pass, b.ssn, b.group, b.area, s.id as usrcod, v.id as usrcode, a.usercode, 
+                        a.fullname, v.fullname as fullnames, s.fullname as fullnamess, b.phone, b.spvid, b.kasacabid, b.is_active, b.is_loginable, 
+                        b.is_spv, r.branchcode as bc, r.branchname as bn')
             ->join('vmsmsuser as a', 'b.userid = a.usercode')
-            ->join('vmsmssecurity as v', 'b.spvid = v.id', 'LEFT')
-            ->join('vmsmssecurity as s', 'b.kasacabid = s.id', 'LEFT');
+            ->join('vmsmsbranch as r', 'r.branchcode = a.branchid')
+            ->join('vmsmssecurity as v', 'b.spvid = v.id', 'left')
+            ->join('vmsmssecurity as s', 'b.kasacabid = s.id', 'left');
 
         if ($id != '') {
             $x->where('b.id', $id);
@@ -78,5 +83,4 @@ class Msuser extends Model
     {
         return $this->builder->delete(['id' => $id]);
     }
-    //--------------------------------------------------------------------
 }

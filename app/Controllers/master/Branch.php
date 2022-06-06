@@ -5,11 +5,10 @@ namespace App\Controllers\master;
 use App\Controllers\BaseController;
 use App\Helpers\Datatables\Datatables;
 use App\Models\Msaccessgroup;
-use App\Models\Msaccessmenu;
-use App\Models\Mscompany;
 use App\Models\Msmenu;
 use App\Models\Msbranch;
 use App\Models\Msusergroup;
+use DateTime;
 
 class Branch extends BaseController
 {
@@ -48,7 +47,7 @@ class Branch extends BaseController
                 $db->kasacabid,
                 "
                 <a class='btn btn-sm btn-warning eee' href='" . base_url('branch/EditViews/' . $db->branchid . '') . "'><i class='fas fa-pencil-alt'></i></a> " .
-                    " <button type='button' class='btn btn-sm btn-danger hhh' onclick=\"deleteGlobal('Delete Branch', 'modal-lg', '" . $db->branchid . "', '" . base_url('branch/deleteData') . "', '" . base_url('/branch') . "')\"><i class='far fa-trash-alt'></i></button>",
+                    " <button type='button' class='btn btn-sm btn-danger hhh' onclick=\"deleteGlobal('VMS', 'Anda yakin ingin hapus branch ini ?', 'modal-lg', '" . $db->branchid . "', '" . base_url('branch/deleteData') . "', '" . base_url('/branch') . "', 'Hapus')\"><i class='far fa-trash-alt'></i></button>",
             ];
         });
         $datatables->toJson();
@@ -92,6 +91,7 @@ class Branch extends BaseController
     }
     public function addData()
     {
+        $date = new DateTime('NOW');
         $branch = $this->request->getPost('branchcode');
         $validation =  \Config\Services::validation();
 
@@ -119,9 +119,9 @@ class Branch extends BaseController
                 'aliascode' => $this->request->getPost('aliascode'),
                 'isactive' => 1,
                 'kasacabid' => $this->request->getPost('kasacabid'),
-                'createddate' => date('Y-m-d H:i:s'),
+                'createddate' => $date->format('Y-m-d H:i:s.u'),
                 'createdby' => session()->get('nama'),
-                'updateddate' => date('Y-m-d H:i:s'),
+                'updateddate' => $date->format('Y-m-d H:i:s.u'),
                 'updatedby' => session()->get('nama'),
             ];
             $this->branch->tambah($data);
@@ -132,6 +132,7 @@ class Branch extends BaseController
 
     public function editData()
     {
+        $date = new DateTime('NOW');
         $branchid = $this->request->getPost('branchid');
         $branchcode = $this->request->getPost('branchcode');
         $code_lama = $this->request->getPost('code_lama');
@@ -180,7 +181,7 @@ class Branch extends BaseController
                 'aliascode' => $this->request->getPost('aliascode'),
                 'kasacabid' => $this->request->getPost('kasacabid'),
                 'isactive' => $this->request->getPost('isactive'),
-                'updateddate' => date('Y-m-d H:i:s'),
+                'updateddate' => $date->format('Y-m-d H:i:s.u'),
                 'updatedby' => session()->get('nama'),
             ];
             $this->branch->edit($data, $branchid);
