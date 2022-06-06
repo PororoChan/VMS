@@ -13,44 +13,45 @@
                 </div>
                 <div class="card-body">
                     <form id='formbranch'>
-                        <div class="form-group">
-                            <label for='user'>Code<span class="text-danger">*</span> :</label>
-                            <input type='hidden' class='form-control' name="code_lama" id="code_lama" value="<?= (($form_type == 'Edit') ? $row['branchcode'] : '') ?>">
-                            <input type="hidden" name="branchid" id="branchid" value="<?= (($form_type == 'Edit') ? $branchid : '') ?>">
-                            <input type='text' class='form-control' name="branchcode" id="branchcode" value="<?= (($form_type == 'Edit') ? $row['branchcode'] : '') ?>">
+                        <div class="row">
+                            <div class="form-group col-6">
+                                <label for='user'>Branch Code<span class="text-danger">*</span> :</label>
+                                <input type='hidden' class='form-control' name="code_lama" id="code_lama" value="<?= (($form_type == 'Edit') ? $row['branchcode'] : '') ?>">
+                                <input type="hidden" name="branchid" id="branchid" value="<?= (($form_type == 'Edit') ? $branchid : '') ?>">
+                                <input type='text' class='form-control' name="branchcode" id="branchcode" value="<?= (($form_type == 'Edit') ? $row['branchcode'] : '') ?>">
+                            </div>
+                            <div class="invalid-feedback errorName">
+                            </div>
+                            <div class='form-group col-6'>
+                                <label for='user'>Branch Name<span class="text-danger">*</span> :</label>
+                                <input type='text' class='form-control' name="branchname" id="branchname" value="<?= (($form_type == 'Edit') ? $row['branchname'] : '') ?>">
+                            </div>
                         </div>
-                        <div class="invalid-feedback errorName">
-                        </div>
-                        <div class='form-group'>
-                            <label for='user'>Name<span class="text-danger">*</span> :</label>
-                            <input type='text' class='form-control' name="branchname" id="branchname" value="<?= (($form_type == 'Edit') ? $row['branchname'] : '') ?>">
-                        </div>
-
-                        <div class="form-group">
-                            <label for="companyid">Area<span class="text-danger">*</span> :</label>
-                            <select class="form-control" name="areacode" id="areacode" style="padding:6px;width: 100%;" required>
-                                <?php if ($form_type == "Edit") { ?>
-                                    <option value="<?= $row['areacode'] ?>"><?= $row['areacode'] ?></option>
-                                <?php } ?>
-                            </select>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="companyid">Alias<span class="text-danger">*</span> :</label>
-                            <select class="form-control" name="aliascode" id="aliascode" style="padding:6px;width: 100%;" required>
-                                <?php if ($form_type == "Edit") { ?>
-                                    <option value="<?= $row['aliascode'] ?>"><?= $row['aliascode'] ?></option>
-                                <?php } ?>
-                            </select>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="companyid">Kasacab<span class="text-danger">*</span> :</label>
-                            <select class="form-control" name="kasacabid" id="kasacabid" style="padding:6px;width: 100%;" required>
-                                <?php if ($form_type == "Edit") { ?>
-                                    <option value="<?= $row['usercode'] ?>"><?= $row['usercode'] ?></option>
-                                <?php } ?>
-                            </select>
+                        <div class="row">
+                            <div class="form-group col-4">
+                                <label for="companyid">Area<span class="text-danger">*</span> :</label>
+                                <select class="form-control" name="areacode" id="areacode" style="padding:6px;width: 100%;" required>
+                                    <?php if ($form_type == "Edit") { ?>
+                                        <option value="<?= $row['areacode'] ?>"><?= $row['areacode'] ?></option>
+                                    <?php } ?>
+                                </select>
+                            </div>
+                            <div class="form-group col-4">
+                                <label for="companyid">Alias<span class="text-danger">*</span> :</label>
+                                <select class="form-control" name="aliascode" id="aliascode" style="padding:6px;width: 100%;" required>
+                                    <?php if ($form_type == "Edit") { ?>
+                                        <option value="<?= $row['aliascode'] ?>"><?= $row['aliascode'] ?></option>
+                                    <?php } ?>
+                                </select>
+                            </div>
+                            <div class="form-group col-4">
+                                <label for="companyid">Kasacab<span class="text-danger">*</span> :</label>
+                                <select class="form-control" name="kasacabid" id="kasacabid" style="padding:6px;width: 100%;" required>
+                                    <?php if ($form_type == "Edit") { ?>
+                                        <option value="<?= $row['usercode'] ?>"><?= $row['usercode'] ?></option>
+                                    <?php } ?>
+                                </select>
+                            </div>
                         </div>
                         <?php if ($form_type == "Edit") { ?>
                             <div class='form-group'>
