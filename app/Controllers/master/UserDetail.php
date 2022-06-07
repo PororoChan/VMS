@@ -49,7 +49,7 @@ class UserDetail extends BaseController
                 "
                 <button type='button' class='btn btn-sm btn-success eee' onclick=\"modalGlobal('Usergroup Setting - " . $db->usercode . "', 'modal-lg', '" . base_url('user/Accessgroup/' . $db->usercode) . "')\"><i class='fas fa-users-cog'></i></button> 
                 <a class='btn btn-sm btn-warning eee' href='" . base_url('userdetail/EditViews/' . $db->usercode . '') . "'><i class='fas fa-pencil-alt'></i></a> " .
-                    " <button type='button' class='btn btn-sm btn-danger hhh' onclick=\"deleteGlobal('VMS', 'Anda yakin ingin hapus user ini ?', 'modal-lg', '" . $db->usercode . "', '" . base_url('userdetail/deleteData') . "', '" . base_url('/user') . "')\"><i class='far fa-trash-alt'></i></button>",
+                    " <button type='button' class='btn btn-sm btn-danger hhh' onclick=\"deleteGlobal('VMS', 'Are you sure want to delete this user ?', 'modal-lg', '" . $db->usercode . "', '" . base_url('userdetail/deleteData') . "', '" . base_url('/user') . "', 'Delete')\"><i class='far fa-trash-alt'></i></button>",
             ];
         });
         $datatables->toJson();

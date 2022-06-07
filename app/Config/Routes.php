@@ -46,6 +46,7 @@ $routes->add('user', 'master\User::index');
 $routes->add('msuser', 'master\UserDetail::index');
 $routes->add('brand', 'master\Brand::index');
 $routes->add('branch', 'master\Branch::index');
+$routes->add('convers', 'master\Conversion::index');
 $routes->add('customer', 'master\Customer::index'); // tabel vmsmscustomer 404
 $routes->add('area', 'master\Area::index'); // tabel vmsmsareacode 404
 $routes->add('alias', 'master\Alias::index'); // tabel vmsmsaliascode 404
@@ -86,6 +87,8 @@ $routes->add('user/Accessgroup/(:num)', 'master\User::Accessgroup/$1');
 //UserDetail
 $routes->add('userdetail/FormViews', 'master\UserDetail::FormViews');
 $routes->add('userdetail/EditViews/(:any)', 'master\UserDetail::FormViews/$1');
+//Conversions
+$routes->add('convers/FormViews', 'master\Conversion::FormViews');
 
 
 /**END MODAL FORM **/
@@ -155,6 +158,7 @@ $routes->add('menu/datatabel', 'master\Menu::datatabel');
 $routes->add('user/datatabel', 'master\User::datatabel');
 $routes->add('branch/datatabel', 'master\Branch::datatabel');
 $routes->add('brand/datatabel', 'master\Brand::datatabel');
+$routes->add('convers/datatabel', 'master\Conversion::datatabel');
 $routes->add('branch/datatabel/(:any)', 'master\Branch::datatabel/$1');
 $routes->add('customer/datatabel', 'master\Customer::datatabel');
 $routes->add('customer/datatabel/(:any)', 'master\Customer::datatabel/$1');

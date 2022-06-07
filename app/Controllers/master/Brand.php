@@ -43,7 +43,7 @@ class Brand extends BaseController
 				$db->cartypename,
 				$db->cartypename2,
 				"<a class='btn btn-sm btn-warning' href='" . base_url('brand/EditViews/' . $db->itemno . '') . "'><i class='fas fa-pen-alt'></i></a>" .
-					"<button class='btn btn-sm btn-danger' onclick=\"deleteGlobal('VMS', 'Anda yakin ingin hapus brand ini ?', 'modal-md', '" . $db->itemno . "', '" . base_url('brand/deleteBrand') . "', '" . base_url('brand') . "', 'Hapus')\"><i class='fas fa-trash-alt'></i></button>",
+					"<button class='btn btn-sm btn-danger' onclick=\"deleteGlobal('VMS', 'Are you sure want to delete this brand ?', 'modal-md', '" . $db->itemno . "', '" . base_url('brand/deleteBrand') . "', '" . base_url('brand') . "', 'Delete')\"><i class='fas fa-trash-alt'></i></button>",
 			];
 		});
 

@@ -41,13 +41,8 @@ class Menu extends BaseController
                 $db->menulink,
                 $db->seq,
                 "<i class='btn-lg " . $db->menuicon . " '></i>",
-                $db->createddate,
-                $db->createdby,
-                $db->updateddate,
-                $db->updatedby,
-                $db->isactive,
                 "<a type='button' class='btn btn-sm btn-warning eee' href='" . base_url('menu/EditViews/' . $db->menuid . '/' . $db->masterid . '') . "'><i class='fas fa-pencil-alt'></i></a> " .
-                    " <button type='button' class='btn btn-sm btn-danger hhh' onclick=\"deleteGlobal('VMS', 'Anda yakin ingin hapus menu ?', 'modal-lg', '" . $db->menuid . "', '" . base_url('menu/deleteData') . "', '" . base_url('/menu') . "', 'Hapus')\"><i class='far fa-trash-alt'></i></button>",
+                    " <button type='button' class='btn btn-sm btn-danger hhh' onclick=\"deleteGlobal('VMS', 'Are you sure want to delete this menu ?', 'modal-lg', '" . $db->menuid . "', '" . base_url('menu/deleteData') . "', '" . base_url('/menu') . "', 'Delete')\"><i class='far fa-trash-alt'></i></button>",
             ];
         });
         $datatables->toJson();

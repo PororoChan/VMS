@@ -49,8 +49,8 @@ class User extends BaseController
                 "
                 <button type='button' class='btn btn-sm btn-success eee' onclick=\"modalGlobal('Usergroup Setting - " . $db->user . "', 'modal-lg', '" . base_url('user/Accessgroup/' . $db->userid) . "')\"><i class='fas fa-users-cog'></i></button> 
                 <a class='btn btn-sm btn-warning eee' href='" . base_url('user/EditViews/' . $db->ids . '') . "')\"><i class='fas fa-pencil-alt'></i></a> " .
-                    " <button type='button' class='btn btn-sm btn-danger hhh' onclick=\"deleteGlobal('VMS', 'Anda yakin ingin menghapus user ?', 'modal-lg', '" . $db->ids . "', '" . base_url('user/deleteData') . "', '" . base_url('/user') . "', 'Hapus')\"><i class='far fa-trash-alt'></i></button>
-                 <button type='button' class='btn btn-sm btn-primary hhh' onclick=\"deleteGlobal('VMS', 'Anda yakin ingin mereset device ?', 'modal-lg', '" . $db->ids . "', '" . base_url('user/resetData/') . "', '" . base_url('/user') . "', 'Reset')\"><i class='fas fa-sync'></button>",
+                    " <button type='button' class='btn btn-sm btn-danger hhh' onclick=\"deleteGlobal('VMS', 'Are you sure want to delete this user ?', 'modal-lg', '" . $db->ids . "', '" . base_url('user/deleteData') . "', '" . base_url('/user') . "', 'Delete')\"><i class='far fa-trash-alt'></i></button>
+                 <button type='button' class='btn btn-sm btn-primary hhh' onclick=\"deleteGlobal('VMS', 'Are you sure want to reset this device ?', 'modal-lg', '" . $db->ids . "', '" . base_url('user/resetData/') . "', '" . base_url('/user') . "', 'Reset')\"><i class='fas fa-sync'></button>",
             ];
         });
 

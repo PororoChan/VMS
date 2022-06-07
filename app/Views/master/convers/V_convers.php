@@ -1,14 +1,15 @@
 <?= $this->include('inc_master/header') ?>
 <?= $this->include('inc_master/sidebar') ?>
+
 <div class="main-content">
     <section class="section">
         <div class="section-header">
-            <h1>List Data Menu</h1>
+            <h1>List Data Conversions</h1>
         </div>
         <div class="section-body">
             <div class="card full-height">
                 <div class="card-header d-flex justify-content-end">
-                    <a class="btn btn-primary" id="buttonTambah" href="<?= base_url('menu/AddViews') ?>">Add</a>
+                    <a href="<?= base_url('convers/FormViews') ?>" class="btn btn-primary">Add</a>
                 </div>
                 <div class="card-body table-responsive">
                     <style>
@@ -31,16 +32,12 @@
                             <thead>
                                 <tr>
                                     <th>#</th>
-                                    <th>Master</th>
-                                    <th>Menuname</th>
-                                    <th>Link</th>
-                                    <th>Sequence</th>
-                                    <th>Icon</th>
-                                    <th>Action</th>
+                                    <th>Product Code</th>
+                                    <th>Product Name</th>
+                                    <th>Converter</th>
+                                    <th>Actions</th>
                                 </tr>
                             </thead>
-                            <tbody>
-                            </tbody>
                         </table>
                     </div>
                 </div>
@@ -48,4 +45,5 @@
         </div>
     </section>
 </div>
+
 <?= $this->include('inc_master/footer') ?>

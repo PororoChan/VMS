@@ -120,7 +120,7 @@
                             if (response.success == 1) {
                                 $("#pesan").removeClass('alert alert-danger');
                                 $("#pesan").addClass('alert alert-success');
-                                window.location = "<?= base_url('/user') ?>";
+                                window.location = "<?= base_url('branch') ?>";
                             } else {
                                 $("#pesan").addClass('alert alert-danger');
                                 var msg = "Username atau Password Salah";

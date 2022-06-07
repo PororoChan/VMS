@@ -39,8 +39,8 @@
 
             </div>
             <div class="modal-footer">
-                <button type='button' class='btn btn-secondary' data-dismiss='modal'>Batal</button>
-                <button type='button' id='button_delete' class='btn btn-primary'>Hapus</button>
+                <button type='button' class='btn btn-secondary' data-dismiss='modal'>Cancel</button>
+                <button type='button' id='button_delete' class='btn btn-primary'>Delete</button>
             </div>
         </div>
     </div>
@@ -91,7 +91,6 @@
     }
 
     function deleteFolder(title, size, id, directory, masterid, link, page) {
-        // Add response in Modal body
         $("#modal-size-delete-folder").removeClass('modal-lg', 'modal-sm', 'modal-xl');
         $("#modal-size-delete-folder").addClass(size);
         // Display Modal
@@ -111,7 +110,6 @@
             data: datas,
             dataType: 'json',
             success: function(response) {
-                // Add response in Modal body
                 $("#modal-size").removeClass('modal-lg', 'modal-sm', 'modal-xl');
                 $("#modal-size").addClass(size);
                 $('#bodycrud').html(response.view); // Display Modal
@@ -167,12 +165,12 @@
                 data: data,
                 success: function(response) {
                     if (response == '1') {
-                        $.notify('Data Berhasil Dihapus', 'success');
+                        $.notify('Data has deleted', 'success');
                         setTimeout(function() {
                             table.ajax.reload();
                         }, 1);
                     } else {
-                        $.notify('Data Gagal Dihapus', 'error');
+                        $.notify('Failed to delete', 'error');
                     }
                     $('#modaldelete').modal('toggle');
                 },

@@ -58,7 +58,7 @@
                         </div>
 
                         <div class='modal-footer'>
-                            <button type='button' class='btn btn-secondary' id="btn-cancel">Batal</button>
+                            <button type='button' class='btn btn-secondary' id="btn-cancel">Cancel</button>
                             <button type='button' id='btn-proses' class='btn btn-primary'>Save</button>
                         </div>
                     </form>
