@@ -14,7 +14,7 @@
                 <div class="card-body">
                     <form id='formuserdetail'>
                         <div class='form-group'>
-                            <label for='user'>Usercode<span class="text-danger">*</span> :</label>
+                            <label for='user'>Usercode<span class='text-danger'>*</span> :</label>
                             <input type="hidden" name="usercode-old" id="usercode-old" value="<?= $usercode ?>">
                             <input type="text" class='form-control' name="usercode" id="usercode" value="<?= (($form_type == 'Edit') ? $row['usercode'] : '') ?>">
                         </div>
