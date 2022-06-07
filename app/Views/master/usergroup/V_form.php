@@ -6,9 +6,9 @@
             <h1>VMS</h1>
         </div>
         <div class="section-body">
-            <div class="card full-height w-50">
+            <div class="card full-height">
                 <div class="card-header">
-                    <h5><?= $form_type ?> Usergroup</h5>
+                    <h5><?= (($form_type == 'Edit') ? 'VMS | Edit Data Usergroup ' . '[' . $row['groupname'] . ']' : 'VMS | Add New Data Usergroup') ?></h5>
                 </div>
                 <div class="card-body">
                     <form>
@@ -62,10 +62,10 @@
                 isactive: isactive,
                 groupid: $('#groupid').val()
             };
-            var process = 'tambah';
+            var process = 'added';
             if (type == 'Edit') {
                 link = "<?= base_url('usergroup/editData') ?>";
-                process = 'edit';
+                process = 'updated';
             }
             $.ajax({
                 type: 'post',
@@ -73,12 +73,12 @@
                 data: data,
                 success: function(response) {
                     if (response == '1') {
-                        $.notify('Data Berhasil Di' + process, 'success');
+                        $.notify('Data has been ' + process, 'success');
                         setTimeout(function() {}, 100);
                         $('#modalcrud').modal('toggle');
                         table.ajax.reload();
                     } else {
-                        $.notify('Data Gagal Di' + process, 'error');
+                        $.notify('Data not ' + process, 'error');
                         setTimeout(function() {
                             window.location.href = e.redirect;
                         }, 100);

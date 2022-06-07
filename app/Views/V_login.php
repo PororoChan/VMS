@@ -19,7 +19,8 @@
             <div class="d-flex flex-wrap align-items-stretch">
                 <div class="col-lg-4 col-md-6 col-12 order-lg-1 min-vh-100 order-2 bg-white">
                     <div class="p-5 m-3 mt-5">
-                        <h4 class="text-dark font-weight-normal">Welcome to <span class="font-weight-bold">VMS @Hyperdata</span></h4>
+                        <h4 class="text-dark font-weight-normal">Welcome to</h4>
+                        <span class="font-weight-bold text-dark" style="font-size: 20px;">VMS PT Autochem Industry</span>
                         <p class="text-muted">Before you get started, you must login or register if you don't already have an account.</p>
                         <form id="login-form">
                             <div id="pesan">
@@ -65,7 +66,7 @@
                         </form>
 
                         <div class="text-center mt-5 text-small">
-                            Copyright &copy; @Hyperdata Solusindo Mandiri.
+                            Copyright &copy; PT Autochem Industry
                             <div class="mt-2">
                                 <a href="#">Privacy Policy</a>
                                 <div class="bullet"></div>
@@ -77,9 +78,9 @@
                 <div class="col-lg-8 col-12 order-lg-2 order-1 min-vh-100 background-walk-y position-relative overlay-gradient-bottom" style="background-color: #2E8B57">
                     <div class="absolute-bottom-left index-2">
                         <div class="text-light p-5 pb-2">
-                            <div class="mb-5 pb-3">
+                            <div class="mb-5 pb-0">
                                 <h1 class="mb-2 display-4 font-weight-bold">Visit Monitoring System</h1>
-                                <h5 class="font-weight-normal text-muted-transparent">PT HYPERDATA SOLUSINDO MANDIRI</h5>
+                                <h5 class="font-weight-normal text-muted-transparent">PT AUTOCHEM INDUSTRY</h5>
                             </div>
                         </div>
                     </div>

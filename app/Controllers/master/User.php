@@ -56,20 +56,20 @@ class User extends BaseController
 
         $datatables->toJson();
     }
-    public function getUser()
+    public function getKasacabid()
     {
         $searchTerm = $this->request->getPost('searchTerm');
-        $comp = $this->user->getSel2($searchTerm);
+        $comp = $this->user->getKasaca($searchTerm);
         $response = array();
         foreach ($comp as $c) {
             $response[] = array("id" => $c['id'], "text" => $c['fullname']);
         }
         echo json_encode($response);
     }
-    public function getUser1()
+    public function getSpv()
     {
         $searchTerm = $this->request->getPost('searchTerm');
-        $comp = $this->user->getSel2($searchTerm);
+        $comp = $this->user->getSpv($searchTerm);
         $response = array();
         foreach ($comp as $c) {
             $response[] = array("id" => $c['id'], "text" => $c['fullname']);
@@ -173,8 +173,8 @@ class User extends BaseController
             'userid' => $this->request->getPost('userid'),
             'phone' => $this->request->getPost('phone'),
             'deviceid' => $this->request->getPost('deviceid'),
-            'spvid' => $this->request->getPost('spvid'),
-            'kasacabid' => $this->request->getPost('kasacabid'),
+            'spvid' => (($this->request->getPost('spvid') != '') ? $this->request->getPost('spvid') : '0'),
+            'kasacabid' => (($this->request->getPost('kasacabid') != '') ? $this->request->getPost('kasacabid') : '0'),
             'updated_date' => $date->format('Y-m-d H:i:s.u'),
             'updated_by' => session()->get('nama'),
         ];

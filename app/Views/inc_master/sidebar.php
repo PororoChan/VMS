@@ -8,17 +8,21 @@
         </div>
         <ul class="sidebar-menu">
             <li class="menu-header">Master</li>
-            <li class="nav-item">
-                <a title="User" class="nav-link" href="<?= base_url('user'); ?>"><i class="fas fa-user"></i><span>User</span></a>
+            <li class="dropdown">
+            <li>
+                <a title="User" class="nav-link" href="<?= base_url('msuser'); ?>"><i class="fas fa-user"></i><span>User</span></a>
             </li>
-            <li class="nav-item">
+            <li>
+                <a title="User" class="nav-link" href="<?= base_url('user'); ?>"><i class="fas fa-user-lock"></i><span>Security User</span></a>
+            </li>
+            <li>
                 <a title="Usergroup" class="nav-link" href="<?= base_url('usergroup'); ?>"><i class="fas fa-users"></i><span>Usergroup</span></a>
             </li>
-            <li class="nav-item">
+            <li>
                 <a title="Branch" class="nav-link" href="<?= base_url('branch'); ?>"><i class="fas fa-code-branch"></i><span>Branch</span></a>
             </li>
-            <li class="nav-item">
-                <a title="Brand" class="nav-link" href="<?= base_url('brand'); ?>"><i class="fas fa-box"></i><span>Brand</span></a>
+            <li>
+                <a title="Brand" class="nav-link" href="<?= base_url('brand'); ?>"><i class="fas fa-box"></i><span>Link Item Brand</span></a>
             </li>
         </ul>
         <ul class="sidebar-menu">

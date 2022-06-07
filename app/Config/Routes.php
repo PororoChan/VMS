@@ -43,6 +43,7 @@ $routes->add('logout', 'Login::logout');
 $routes->add('usergroup', 'master\Usergroup::index');
 $routes->add('menu', 'master\Menu::index');
 $routes->add('user', 'master\User::index');
+$routes->add('msuser', 'master\UserDetail::index');
 $routes->add('brand', 'master\Brand::index');
 $routes->add('branch', 'master\Branch::index');
 $routes->add('customer', 'master\Customer::index'); // tabel vmsmscustomer 404
@@ -82,6 +83,9 @@ $routes->add('user/EditViews/(:num)', 'master\User::FormViews/$1');
 $routes->add('userdetail/FormViews', 'master\Userdetail::FormViews');
 $routes->add('userdetail/EditViews/(:num)', 'master\Userdetail::FormViews/$1');
 $routes->add('user/Accessgroup/(:num)', 'master\User::Accessgroup/$1');
+//UserDetail
+$routes->add('userdetail/FormViews', 'master\UserDetail::FormViews');
+$routes->add('userdetail/EditViews/(:any)', 'master\UserDetail::FormViews/$1');
 
 
 /**END MODAL FORM **/
@@ -92,6 +96,7 @@ $routes->add('usergroup/addData', 'master\Usergroup::addData');
 $routes->add('usergroup/editData', 'master\Usergroup::editData');
 $routes->add('usergroup/deleteData', 'master\Usergroup::deleteData');
 $routes->add('usergroup/accessData', 'master\Usergroup::accessData');
+
 //Master Menu
 $routes->add('menu/addData', 'master\Menu::addData');
 $routes->add('menu/editData', 'master\Menu::editData');
@@ -136,10 +141,16 @@ $routes->add('user/accessData', 'master\User::Addaccessgroup');
 $routes->add('user/deleteaccessData', 'master\User::deleteaccessgroup');
 $routes->add('user/editaccessData', 'master\User::Editaccessgroup');
 
+// UserDetail
+$routes->add('userdetail/addData', 'master\UserDetail::addData');
+$routes->add('userdetail/editData', 'master\UserDetail::editData');
+$routes->add('userdetail/deleteData', 'master\UserDetail::deleteData');
+
 /** END SUBMIT FORM **/
 
 //Datatabel
 $routes->add('usergroup/datatabel', 'master\Usergroup::datatabel');
+$routes->add('msuser/datatabel', 'master\UserDetail::datatabel');
 $routes->add('menu/datatabel', 'master\Menu::datatabel');
 $routes->add('user/datatabel', 'master\User::datatabel');
 $routes->add('branch/datatabel', 'master\Branch::datatabel');
@@ -155,7 +166,8 @@ $routes->add('user/grouptableaccess/(:num)', 'master\User::GroupAccessTable/$1')
 $routes->add('menu/getMaster', 'master\Menu::getMaster');
 $routes->add('user/getGroup', 'master\User::getGroup');
 $routes->add('userdetail/getUser', 'master\UserDetail::getUser');
-$routes->add('user/getUser', 'master\User::getUser');
+$routes->add('user/getKas', 'master\User::getKasacabid');
+$routes->add('user/getSpv', 'master\User::getSpv');
 $routes->add('alias/getAlias', 'master\Alias::getAlias');
 $routes->add('area/getArea', 'master\Area::getArea');
 $routes->add('branch/getBranch', 'master\Branch::getBranch');

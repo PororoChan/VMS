@@ -46,8 +46,8 @@ class Branch extends BaseController
                 $db->aliascode,
                 $db->kasacabid,
                 "
-                <a class='btn btn-sm btn-warning eee' href='" . base_url('branch/EditViews/' . $db->branchid . '') . "'><i class='fas fa-pencil-alt'></i></a> " .
-                    " <button type='button' class='btn btn-sm btn-danger hhh' onclick=\"deleteGlobal('VMS', 'Anda yakin ingin hapus branch ini ?', 'modal-lg', '" . $db->branchid . "', '" . base_url('branch/deleteData') . "', '" . base_url('/branch') . "', 'Hapus')\"><i class='far fa-trash-alt'></i></button>",
+                <a class='btn btn-sm btn-warning eee' href='" . base_url('branch/EditViews/' . $db->id . '') . "'><i class='fas fa-pencil-alt'></i></a> " .
+                    " <button type='button' class='btn btn-sm btn-danger hhh' onclick=\"deleteGlobal('VMS', 'Anda yakin ingin hapus branch ini ?', 'modal-lg', '" . $db->id . "', '" . base_url('branch/deleteData') . "', '" . base_url('/branch') . "', 'Hapus')\"><i class='far fa-trash-alt'></i></button>",
             ];
         });
         $datatables->toJson();
@@ -100,15 +100,24 @@ class Branch extends BaseController
                 'rules' => 'required|is_unique[vmsmsbranch.branchcode]',
                 'label' => 'Branchcode',
                 'errors' => [
-                    'required' => "{field} tidak boleh kosong",
-                    'is_unique' => "{field} sudah ada"
+                    'required' => "{field} cannot be empty",
+                    'is_unique' => "{field} already exist"
+                ]
+            ],
+            'aliascode' => [
+                'rules' => 'required|is_unique[vmsmsbranch.aliascode]',
+                'label' => 'Aliascode',
+                'errors' => [
+                    'required' => "{field} cannot be empty",
+                    'is_unique' => "{field} already exist"
                 ]
             ],
         ]);
         if (!$valid) {
             $msg = [
                 'error' => [
-                    'errorName' => $validation->getError('branchcode')
+                    'errorName' => $validation->getError('branchcode'),
+                    'errorAlias' => $validation->getError('aliascode')
                 ]
             ];
         } else {
@@ -136,13 +145,18 @@ class Branch extends BaseController
         $branchid = $this->request->getPost('branchid');
         $branchcode = $this->request->getPost('branchcode');
         $code_lama = $this->request->getPost('code_lama');
+        $isactive = $this->request->getPost('isactive');
+
+        if ($isactive == '') {
+            $isactive = 0;
+        }
 
         $rule_code = [
             'rules' => 'required|is_unique[vmsmsbranch.branchcode]',
             'label' => 'Branchcode',
             'errors' => [
-                'required' => "{field} tidak boleh kosong",
-                'is_unique' => "{field} sudah ada"
+                'required' => "{field} cannot be empty",
+                'is_unique' => "{field} already exist",
             ]
         ];
         if ($branchcode == $code_lama) {
@@ -150,7 +164,7 @@ class Branch extends BaseController
                 'rules' => 'required',
                 'label' => 'Branchcode',
                 'errors' => [
-                    'required' => "{field} tidak boleh kosong",
+                    'required' => "{field} cannot be empty",
                 ]
             ];
         }
@@ -158,19 +172,11 @@ class Branch extends BaseController
 
         $valid = $this->validate([
             'branchcode' => $rule_code,
-            'branchname' => [
-                'rules' => 'required',
-                'label' => 'Branchname',
-                'errors' => [
-                    'required' => "{field} tidak boleh kosong",
-                ]
-            ],
         ]);
         if (!$valid) {
             $msg =  [
                 'error' => [
                     'errorName' => $validation->getError('branchcode'),
-                    'errorBranch' => $validation->getError('branchname'),
                 ]
             ];
         } else {
@@ -180,7 +186,7 @@ class Branch extends BaseController
                 'areacode' => $this->request->getPost('areacode'),
                 'aliascode' => $this->request->getPost('aliascode'),
                 'kasacabid' => $this->request->getPost('kasacabid'),
-                'isactive' => $this->request->getPost('isactive'),
+                'isactive' => $isactive,
                 'updateddate' => $date->format('Y-m-d H:i:s.u'),
                 'updatedby' => session()->get('nama'),
             ];

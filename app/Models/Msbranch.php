@@ -18,7 +18,7 @@ class Msbranch extends Model
         return [
             null,
             "b.branchcode",
-            null,
+            "b.branchname",
             null,
             null,
             null,
@@ -36,17 +36,17 @@ class Msbranch extends Model
 
     public function getSel2($searchTerm)
     {
-        return $this->builder
-            ->where("branchcode  like '%" . $searchTerm . "%'")->get()->getResultArray();
+        return $this->builder->distinct()
+            ->select('b.branchcode, b.branchname')
+            ->where("b.branchcode  like '%" . $searchTerm . "%'")->orderBy('b.branchname', 'asc')->get()->getResultArray();
     }
-
 
     public function get_one($id = '')
     {
-        $x = $this->builder->select('b.branchid, b.isactive, b.branchcode, b.branchname, b.areacode, b.aliascode, b.kasacabid, a.usercode')
+        $x = $this->builder->select('b.id, b.branchid, b.isactive, b.branchcode, b.branchname, b.areacode, b.aliascode, b.kasacabid, a.usercode')
             ->join('vmsmsuser as a', 'b.kasacabid = a.usercode', 'left');
         if ($id != '') {
-            $x->where('b.branchid', $id);
+            $x->where('b.id', $id);
         }
         return $x->get()->getRowArray();
     }
@@ -56,11 +56,10 @@ class Msbranch extends Model
     }
     public function edit($data, $id)
     {
-        return $this->builder->update($data, ['branchid' => $id]);
+        return $this->builder->update($data, ['id' => $id]);
     }
     public function hapus($id)
     {
-        return $this->builder->delete(['branchid' => $id]);
+        return $this->builder->delete(['id' => $id]);
     }
-    //--------------------------------------------------------------------
 }

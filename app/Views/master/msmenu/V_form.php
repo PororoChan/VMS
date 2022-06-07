@@ -6,9 +6,9 @@
             <h1>VMS</h1>
         </div>
         <div class="section-body">
-            <div class="card full-height w-75">
+            <div class="card full-height">
                 <div class="card-header">
-                    <h5><?= $form_type ?> Menu</h5>
+                    <h5><?= (($form_type == 'Edit') ? 'VMS | Edit Data Menu ' . '[' . $row['menuname'] . ']' : 'VMS | Add New Data Menu') ?></h5>
                 </div>
                 <div class="card-body">
                     <form>
@@ -139,10 +139,10 @@
                 menuicon: menuicon,
                 isactive: isactive
             };
-            var process = 'tambah';
+            var process = 'added';
             if (type == 'Edit') {
                 link = "<?= base_url('menu/editData') ?>";
-                process = 'edit'
+                process = 'updated'
             }
             $.ajax({
                 type: 'post',
@@ -150,13 +150,13 @@
                 data: data,
                 success: function(response) {
                     if (response == '1') {
-                        $.notify('Data Berhasil Di' + process, 'success');
+                        $.notify('Data has been ' + process, 'success');
                         setTimeout(function() {
                             table.ajax.reload();
                             window.location.href = "<?= base_url('menu') ?>"
                         }, 100);
                     } else {
-                        $.notify('Data Gagal Di' + process, 'error');
+                        $.notify('Data not ' + process, 'error');
                     }
                 },
                 error: function(xhr, ajaxOptions, thrownError) {

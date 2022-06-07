@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
-    <title>Admin Page &mdash; Stisla</title>
+    <title>VMS | Autochem Industry</title>
     <link rel="icon" href="<?= base_url('public/folder.ico') ?>" type="image/x-icon" />
     <!-- General CSS Files -->
     <link rel="stylesheet" href="<?= base_url('public/assets/css/bootstrap.min.css') ?>">

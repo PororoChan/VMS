@@ -3,7 +3,7 @@
 <div class="main-content">
     <section class="section">
         <div class="section-header">
-            <h1>Master Menu</h1>
+            <h1>List Data Menu</h1>
         </div>
         <div class="section-body">
             <div class="card full-height">

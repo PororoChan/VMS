@@ -48,15 +48,24 @@ class Msuser extends Model
             ->get()->getRowArray();
     }
 
-    public function getSel2($searchTerm)
+    public function getSpv($searchTerm)
     {
         return $this->builder
-            ->where("fullname like '%" . $searchTerm . "%'")->get()->getResultArray();
+            ->join('vmsmsuser as a', 'a.usercode = b.userid')
+            ->where('a.usertype', 'SUPERVISOR')->get()->getResultArray();
+    }
+
+    public function getKasaca($searchTerm)
+    {
+        return $this->builder
+            ->join('vmsmsuser as u', 'b.userid = u.usercode')
+            ->where("b.fullname like '%" . $searchTerm . "%'")->where('u.usertype', 'KASACAB')
+            ->get()->getResultArray();
     }
 
     public function get_one($id = '')
     {
-        $x = $this->builder
+        $x = $this->builder->distinct()
             ->select('b.id, b.user, b.fullname as fulname, b.pass, b.ssn, b.group, b.area, s.id as usrcod, v.id as usrcode, a.usercode, 
                         a.fullname, v.fullname as fullnames, s.fullname as fullnamess, b.phone, b.spvid, b.kasacabid, b.is_active, b.is_loginable, 
                         b.is_spv, r.branchcode as bc, r.branchname as bn')

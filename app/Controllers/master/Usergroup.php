@@ -46,8 +46,8 @@ class Usergroup extends BaseController
                 $db->updateddate,
                 $db->updatedby,
                 $db->isactive,
-                " <button type='button' class='btn btn-sm btn-success eee' onclick=\"modalGlobal('Akses Usergroup - " . $db->groupname . "', 'modal-xl', '" . base_url('usergroup/AccessViews/' . $db->groupid) . "')\"><i class='fas fa-user-cog'></i></button> " .
-                    " <a class='btn btn-sm btn-warning eee' href='" . base_url('usergroup/EditViews/' . $db->groupid . '') . "'><i class='fas fa-pencil-alt'></i></a> " .
+                // " <button type='button' class='btn btn-sm btn-success eee' onclick=\"modalGlobal('Akses Usergroup - " . $db->groupname . "', 'modal-xl', '" . base_url('usergroup/AccessViews/' . $db->groupid) . "')\"><i class='fas fa-user-cog'></i></button> " .
+                " <a class='btn btn-sm btn-warning eee' href='" . base_url('usergroup/EditViews/' . $db->groupid . '') . "'><i class='fas fa-pencil-alt'></i></a> " .
                     " <button type='button' class='btn btn-sm btn-danger hhh' onclick=\"deleteGlobal('VMS', 'Anda yakin ingin hapus usergroup ?', 'modal-md', '" . $db->groupid . "', '" . base_url('usergroup/deleteData') . "', '" . base_url('/usergroup') . "', 'Hapus')\"><i class='far fa-trash-alt'></i></button>",
             ];
         });

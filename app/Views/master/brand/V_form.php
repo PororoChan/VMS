@@ -9,60 +9,54 @@
         <div class="section-body">
             <div class="card full-height">
                 <div class="card-header">
-                    <h5><?= $form_type ?> Brand</h5>
+                    <h5><?= (($form_type == 'Edit') ? 'VMS | Edit Data Item Brand ' . '[' . $row['itemno'] . ']' : 'VMS | Add New Data Item Brand') ?></h5>
                 </div>
                 <div class="card-body">
                     <form id='fbrand'>
-                        <div class="row">
-                            <div class='form-group col-4'>
-                                <label>No Item<span class="text-danger">*</span> :</label>
-                                <input type="hidden" name="id" id="id" value="<?= $itemno ?>">
-                                <input type='text' class='form-control' name="itemno" id="itemno" value="<?= (($form_type == 'Edit') ? $row['itemno'] : '') ?>">
-                            </div>
-                            <div class='form-group col-4'>
-                                <label>Deskripsi <span class="text-danger">*</span> :</label>
-                                <input type='text' class='form-control' name="itemdesc" id="itemdesc" value="<?= (($form_type == 'Edit') ? $row['itemdesc'] : '') ?>">
-                            </div>
-                            <div class="form-group col-4">
-                                <label>Brand<span class="text-danger">*</span> :</label>
-                                <input type="text" class="form-control" name="brand" id="brand" value="<?= (($form_type == 'Edit') ? $row['brand'] : '') ?>">
-                            </div>
+                        <div class='form-group'>
+                            <label>No Item<span class="text-danger">*</span> :</label>
+                            <input type="hidden" name="id" id="id" value="<?= $itemno ?>">
+                            <input type='text' class='form-control' name="itemno" id="itemno" value="<?= (($form_type == 'Edit') ? $row['itemno'] : '') ?>">
+                        </div>
+                        <div class='form-group'>
+                            <label>Deskripsi <span class="text-danger">*</span> :</label>
+                            <input type='text' class='form-control' name="itemdesc" id="itemdesc" value="<?= (($form_type == 'Edit') ? $row['itemdesc'] : '') ?>">
+                        </div>
+                        <div class="form-group">
+                            <label>Brand<span class="text-danger">*</span> :</label>
+                            <input type="text" class="form-control" name="brand" id="brand" value="<?= (($form_type == 'Edit') ? $row['brand'] : '') ?>">
                         </div>
 
-                        <div class="row">
-                            <div class="form-group col-3">
-                                <label>Bf Big<span class="text-danger">*</span> :</label>
-                                <input type="text" class="form-control" name="bfbig" id="bfbig" value="<?= (($form_type == 'Edit') ? $row['bfbig'] : '') ?>">
-                            </div>
-                            <div class="form-group col-3">
-                                <label for="full">BF<span class="text-danger">*</span> :</label>
-                                <input type="text" class="form-control" name="bf" id="bf" value="<?= (($form_type == 'Edit') ? $row['bf'] : '') ?>">
-                            </div>
-                            <div class="form-group col-3">
-                                <label>BF 2<span class="text-danger">*</span> :</label>
-                                <input type="text" class="form-control" name="bf2" id="bf2" value="<?= (($form_type == 'Edit') ? $row['bf2'] : '') ?>">
-                            </div>
-                            <div class="form-group col-3">
-                                <label>BF 3<span class="text-danger">*</span> :</label>
-                                <input type="text" class="form-control" name="bf3" id="bf3" value="<?= (($form_type == 'Edit') ? $row['bf3'] : '') ?>">
-                            </div>
+                        <div class="form-group">
+                            <label>Bf Big<span class="text-danger">*</span> :</label>
+                            <input type="text" class="form-control" name="bfbig" id="bfbig" value="<?= (($form_type == 'Edit') ? $row['bfbig'] : '') ?>">
+                        </div>
+                        <div class="form-group">
+                            <label for="full">BF<span class="text-danger">*</span> :</label>
+                            <input type="text" class="form-control" name="bf" id="bf" value="<?= (($form_type == 'Edit') ? $row['bf'] : '') ?>">
+                        </div>
+                        <div class="form-group">
+                            <label>BF 2<span class="text-danger">*</span> :</label>
+                            <input type="text" class="form-control" name="bf2" id="bf2" value="<?= (($form_type == 'Edit') ? $row['bf2'] : '') ?>">
+                        </div>
+                        <div class="form-group">
+                            <label>BF 3<span class="text-danger">*</span> :</label>
+                            <input type="text" class="form-control" name="bf3" id="bf3" value="<?= (($form_type == 'Edit') ? $row['bf3'] : '') ?>">
                         </div>
 
-                        <div class="row">
-                            <div class="form-group col-5">
-                                <label>Cartype Name<span class="text-danger">*</span> :</label>
-                                <input type="text" class="form-control" name="cartype" id="cartype" value="<?= (($form_type == 'Edit') ? $row['cartypename'] : '') ?>">
-                            </div>
-                            <div class="form-group col-5">
-                                <label>Cartype Name 2<span class="text-danger">*</span> :</label>
-                                <input type="text" class="form-control" name="cartype2" id="cartype2" value="<?= (($form_type == 'Edit') ? $row['cartypename2'] : '') ?>">
-                            </div>
-                            <div class='form-group col-2'>
-                                <label for="">&nbsp;</label>
-                                <div class='text-right' style="padding-right: 0px;">
-                                    <button type='button' class='btn btn-secondary' id="btn-cancel">Cancel</button>
-                                    <button type='button' style='margin-left: 5px' id='btn-proses' class='btn btn-primary'>Save</button>
-                                </div>
+                        <div class="form-group">
+                            <label>Cartype Name<span class="text-danger">*</span> :</label>
+                            <input type="text" class="form-control" name="cartype" id="cartype" value="<?= (($form_type == 'Edit') ? $row['cartypename'] : '') ?>">
+                        </div>
+                        <div class="form-group">
+                            <label>Cartype Name 2<span class="text-danger">*</span> :</label>
+                            <input type="text" class="form-control" name="cartype2" id="cartype2" value="<?= (($form_type == 'Edit') ? $row['cartypename2'] : '') ?>">
+                        </div>
+                        <div class='form-group'>
+                            <label for="">&nbsp;</label>
+                            <div class='text-right' style="padding-right: 0px;">
+                                <button type='button' class='btn btn-secondary' id="btn-cancel">Cancel</button>
+                                <button type='button' style='margin-left: 5px' id='btn-proses' class='btn btn-primary'>Save</button>
                             </div>
                         </div>
                     </form>
@@ -86,10 +80,10 @@
             var form = $('#fbrand')[0];
             var data = new FormData(form);
             var link = "<?= base_url('brand/addBrand') ?>";
-            var pros = 'tambah';
+            var pros = 'added';
             if (formtype == 'Edit') {
                 link = "<?= base_url('brand/editBrand') ?>"
-                pros = 'edit'
+                pros = 'updated'
             }
 
             $.ajax({
@@ -101,13 +95,13 @@
                 cache: false,
                 success: function(res) {
                     if (res == 1) {
-                        $.notify('Data berhasil di' + pros, 'success')
+                        $.notify('Data has been ' + pros, 'success')
                         setTimeout(() => {
                             table.ajax.reload();
                             window.location.href = "<?= base_url('brand') ?>"
                         }, 500);
                     } else {
-                        $.notify('Data Gagal di' + pros, 'error');
+                        $.notify('Data not ' + pros, 'error');
                     }
                 },
                 error: function(xhr, ajaxOptions, thrownError) {

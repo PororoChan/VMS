@@ -31,8 +31,9 @@ class MsuserDetail extends Model
     }
     public function getAllData($param, $text)
     {
-        return $this->builder
-            ->join('vmsmsbranch as u', 'b.branchid = u.branchcode');
+        return $this->builder->distinct()
+            ->select('b.usercode, b.fullname, b.usertype, b.branchid, r.branchname')
+            ->join('vmsmsbranch as r', 'b.branchid = r.branchcode', 'left');
     }
     public function cek($user)
     {
@@ -40,16 +41,15 @@ class MsuserDetail extends Model
             ->where('b.usercode', $user)
             ->get()->getRowArray();
     }
-
     public function getSel2($searchTerm)
     {
         return $this->builder
             ->where("fullname like '%" . $searchTerm . "%'")->get()->getResultArray();
     }
-
     public function get_one($id = '')
     {
-        $x = $this->builder;
+        $x = $this->builder->select('b.usercode, b.fullname, b.usertype, b.branchid as bid, b.activedate, b.isactive, r.branchname as bname')
+            ->join('vmsmsbranch as r', 'b.branchid = r.branchcode', 'left');
         if ($id != '') {
             $x->where('b.usercode', $id);
         }
@@ -67,5 +67,4 @@ class MsuserDetail extends Model
     {
         return $this->builder->delete(['usercode' => $id]);
     }
-    //--------------------------------------------------------------------
 }

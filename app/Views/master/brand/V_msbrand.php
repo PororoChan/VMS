@@ -4,7 +4,7 @@
 <div class="main-content">
     <section class="section">
         <div class="section-header">
-            <h1>Halaman Brand</h1>
+            <h1>List Data Item Brand</h1>
         </div>
         <div class="section-body">
             <div class="card full-height">
@@ -33,7 +33,7 @@
                                 <tr>
                                     <th>#</th>
                                     <th>Item</th>
-                                    <th>Deskripsi</th>
+                                    <th>Description</th>
                                     <th>Brand</th>
                                     <th>Bf big</th>
                                     <th>BF</th>

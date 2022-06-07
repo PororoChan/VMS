@@ -11,6 +11,7 @@ use App\Models\Msmenu;
 use App\Models\Msuser;
 use App\Models\MsuserDetail;
 use App\Models\Msusergroup;
+use DateTime;
 
 class UserDetail extends BaseController
 {
@@ -30,30 +31,25 @@ class UserDetail extends BaseController
         if (session()->get('id_user') == null) {
             return redirect()->to(base_url('login'));
         }
-        return view('master/user/V_userdetail', $data);
+        return view('master/userdetail/V_userdetail', $data);
     }
     public function datatabel()
     {
-        $datatables = Datatables::method([Msuser::class, 'getAllData'], 'searchable')
+        $datatables = Datatables::method([MsuserDetail::class, 'getAllData'], 'searchable')
             ->setParams(1, 'kedua')
             ->make();
         //        echo db_connect()->showLastQuery();
         $datatables->updateRow(function ($db, $nomor) {
             return [
                 $nomor,
+                $db->usercode,
                 $db->fullname,
                 $db->usertype,
                 $db->branchname,
-                $db->activedate,
-                $db->created_date,
-                $db->created_by,
-                $db->updated_date,
-                $db->updated_by,
-                $db->is_active,
                 "
-                <button type='button' class='btn btn-sm btn-success eee' onclick=\"modalGlobal('Usergroup Setting - " . $db->user . "', 'modal-lg', '" . base_url('user/Accessgroup/' . $db->usercode) . "')\"><i class='fas fa-users-cog'></i></button> 
-                <button type='button' class='btn btn-sm btn-warning eee' onclick=\"modalGlobal('Edit User', 'modal-lg', '" . base_url('user/EditViews/' . $db->usercode) . "')\"><i class='fas fa-pencil-alt'></i></button> " .
-                    " <button type='button' class='btn btn-sm btn-danger hhh' onclick=\"deleteGlobal('Hapus User', 'modal-lg', '" . $db->usercode . "', '" . base_url('user/deleteData') . "', '" . base_url('/user') . "')\"><i class='far fa-trash-alt'></i></button>",
+                <button type='button' class='btn btn-sm btn-success eee' onclick=\"modalGlobal('Usergroup Setting - " . $db->usercode . "', 'modal-lg', '" . base_url('user/Accessgroup/' . $db->usercode) . "')\"><i class='fas fa-users-cog'></i></button> 
+                <a class='btn btn-sm btn-warning eee' href='" . base_url('userdetail/EditViews/' . $db->usercode . '') . "'><i class='fas fa-pencil-alt'></i></a> " .
+                    " <button type='button' class='btn btn-sm btn-danger hhh' onclick=\"deleteGlobal('VMS', 'Anda yakin ingin hapus user ini ?', 'modal-lg', '" . $db->usercode . "', '" . base_url('userdetail/deleteData') . "', '" . base_url('/user') . "')\"><i class='far fa-trash-alt'></i></button>",
             ];
         });
         $datatables->toJson();
@@ -71,33 +67,33 @@ class UserDetail extends BaseController
     }
     public function FormViews($id = '')
     {
-        $form_type = 'add';
+        $form_type = 'Add';
         if ($id != '') {
-            $form_type = 'edit';
+            $form_type = 'Edit';
         }
         $data = [
             'form_type' => $form_type,
             'row' => $this->userdetail->get_one($id),
             'usercode' => $id
         ];
-        $tes['view'] = view('master/userdetail/V_form', $data);
-        echo json_encode($tes);
+
+        return view('master/userdetail/V_form', $data);
     }
     public function addData()
     {
         $data = [
+            'usercode' => $this->request->getPost('usercode'),
             'fullname' => $this->request->getPost('fullname'),
             'usertype' => $this->request->getPost('usertype'),
-            'branchid' => $this->request->getPost('branchid'),
-            'fullname' => $this->request->getPost('fullname'),
-
-            'isactive' => $this->request->getPost('isactive'),
-            'created_date' => date('Y-m-d H:i:s'),
-            'created_by' => session()->get('nama'),
-            'updated_date' => date('Y-m-d H:i:s'),
-            'updated_by' => session()->get('nama'),
+            'branchid' => $this->request->getPost('branch'),
+            'activedate' => $this->request->getPost('activedate'),
+            'isactive' => 1,
+            'createddate' => date('Y-m-d H:i:s'),
+            'createdby' => session()->get('nama'),
+            'updateddate' => date('Y-m-d H:i:s'),
+            'updatedby' => session()->get('nama'),
         ];
-        $query = $this->user->tambah($data);
+        $query = $this->userdetail->tambah($data);
         if ($query) {
             echo 1;
         } else {
@@ -106,18 +102,21 @@ class UserDetail extends BaseController
     }
     public function editData()
     {
-        $userid = $this->request->getPost('usercode');
+        if ($this->request->getPost('isactive') == '') {
+            $active = 0;
+        } else if ($this->request->getPost('isactive') == '1') {
+            $active = 1;
+        }
+        $userid = $this->request->getPost('usercode-old');
         $data = [
             'usercode' => $this->request->getPost('usercode'),
             'fullname' => $this->request->getPost('fullname'),
             'usertype' => $this->request->getPost('usertype'),
-            'branchid' => $this->request->getPost('branchid'),
-            'fullname' => $this->request->getPost('fullname'),
-            'isactive' => $this->request->getPost('isactive'),
+            'branchid' => $this->request->getPost('branch'),
             'activedate' => $this->request->getPost('activedate'),
-            'updated_date' => date('Y-m-d H:i:s'),
-            'updated_by' => session()->get('nama'),
-
+            'isactive' => $active,
+            'updateddate' => date('Y-m-d H:i:s'),
+            'updatedby' => session()->get('nama'),
         ];
         $query = $this->userdetail->edit($data, $userid);
         if ($query) {
@@ -130,7 +129,7 @@ class UserDetail extends BaseController
     public function deleteData()
     {
         $id = $this->request->getPost('id');
-        $query = $this->user->hapus($id);
+        $query = $this->userdetail->hapus($id);
         if ($query) {
             echo 1;
         } else {

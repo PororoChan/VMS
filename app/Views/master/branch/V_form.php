@@ -9,7 +9,7 @@
         <div class="section-body">
             <div class="card full-height">
                 <div class="card-header">
-                    <h5><?= $form_type ?> Branch</h5>
+                    <h5><?= (($form_type == 'Edit') ? 'VMS | Edit Data Branch ' . '[' . $row['branchname'] . ']' : 'VMS | Add New Data Branch') ?></h5>
                 </div>
                 <div class="card-body">
                     <form id='formbranch'>
@@ -28,20 +28,12 @@
 
                         <div class="form-group">
                             <label for="companyid">Area<span class="text-danger">*</span> :</label>
-                            <select class="form-control" name="areacode" id="areacode" style="padding:6px;width: 100%;" required>
-                                <?php if ($form_type == "Edit") { ?>
-                                    <option value="<?= $row['areacode'] ?>"><?= $row['areacode'] ?></option>
-                                <?php } ?>
-                            </select>
+                            <input type="text" class="form-control" name="areacode" id="areacode" value="<?= (($form_type == 'Edit') ? $row['areacode'] : '') ?>">
                         </div>
 
                         <div class="form-group">
                             <label for="companyid">Alias<span class="text-danger">*</span> :</label>
-                            <select class="form-control" name="aliascode" id="aliascode" style="padding:6px;width: 100%;" required>
-                                <?php if ($form_type == "Edit") { ?>
-                                    <option value="<?= $row['aliascode'] ?>"><?= $row['aliascode'] ?></option>
-                                <?php } ?>
-                            </select>
+                            <input type="text" class="form-control" name="aliascode" id="aliascode" value="<?= (($form_type == 'Edit') ? $row['aliascode'] : '') ?>">
                         </div>
 
                         <div class="form-group">
@@ -88,90 +80,56 @@
         }
 
         $('#btn-proses').on('click', function() {
-            let form = $('#formbranch')[0];
-            let data = new FormData(form);
-            var link = "<?= base_url('branch/addData') ?>";
-            var process = 'tambah';
+            var form = $('#formbranch')[0],
+                dt = new FormData(form),
+                link = "<?= base_url('branch/addData') ?>",
+                pros = "added";
+
             if (ftype == 'Edit') {
                 link = "<?= base_url('branch/editData') ?>";
-                process = 'edit'
+                pros = 'updated';
             }
+
             $.ajax({
-                type: 'post',
                 url: link,
-                data: data,
+                data: dt,
+                type: 'post',
+                dataType: 'json',
                 processData: false,
                 contentType: false,
-                cache: false,
-                dataType: 'json',
-                success: function(response) {
-                    if (response.error) {
-                        let data = response.error;
+                success: function(res) {
+                    if (res.error) {
+                        let dt = res.error;
 
-                        if (data.errorName) {
+                        if (dt.errorName) {
                             $('#branchcode').addClass('is-invalid');
-                            $('.errorName').text(data.errorName);
+                            $.notify(dt.errorName, 'error');
+                        } else if (dt.errorAlias) {
+                            $('#aliascode').addClass('is-invalid');
+                            $.notify(dt.errorAlias, 'error');
                         } else {
                             $('#branchcode').removeClass('is-invalid');
                             $('#branchcode').addClass('is-valid');
+                            $('#aliascode').removeClass('is-invalid');
+                            $('#aliascode').addClass('is-valid');
                         }
-
-                    } else {
-                        $.notify('Data Berhasil Di' + process, 'success');
-                        setTimeout(function() {
-                            table.ajax.reload();
+                    }
+                    if (res.success == 1) {
+                        $.notify('Data has been ' + pros, 'success');
+                        setTimeout(() => {
+                            table.ajax.reload()
                             window.location.href = "<?= base_url('branch') ?>"
-                        }, 100);
+                        }, 500);
                     }
                 },
                 error: function(xhr, ajaxOptions, thrownError) {
-                    $.notify('Branch Code sudah ada !', 'error');
+                    alert(thrownError);
                 }
-            });
-        });
+            })
+        })
 
         $('#btn-cancel').on('click', function() {
             window.location.href = "<?= base_url('branch') ?>"
-        })
-
-        $("#aliascode").select2({
-            ajax: {
-                url: '<?= base_url('alias/getAlias') ?>',
-                type: "post",
-                dataType: 'json',
-                delay: 250,
-                data: function(params) {
-                    return {
-                        searchTerm: params.term // search term
-                    };
-                },
-                processResults: function(response) {
-                    return {
-                        results: response
-                    };
-                },
-                cache: true
-            }
-        });
-
-        $("#areacode").select2({
-            ajax: {
-                url: '<?= base_url('area/getArea') ?>',
-                type: "post",
-                dataType: 'json',
-                delay: 250,
-                data: function(params) {
-                    return {
-                        searchTerm: params.term // search term
-                    };
-                },
-                processResults: function(response) {
-                    return {
-                        results: response
-                    };
-                },
-                cache: true
-            }
         });
 
         $("#kasacabid").select2({
