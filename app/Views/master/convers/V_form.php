@@ -15,19 +15,20 @@
                     <form id="formconvers">
                         <div class="form-group">
                             <label for="productcode">Product Code <span class="text-danger">*</span></label>
-                            <input type="text" class="form-control" id="pcode" name="pcode" value="<?= (($form_type == 'Edit') ? $row['productcode'] : '') ?>">
+                            <input type="hidden" id="productid" name="productid" value="<?= (($form_type == 'Edit') ? $row['id'] : '') ?>">
+                            <input type="text" class="form-control" id="productcode" name="productcode" value="<?= (($form_type == 'Edit') ? $row['productcode'] : '') ?>">
                         </div>
                         <div class="form-group">
                             <label for="productname">Product Name <span class="text-danger">*</span></label>
-                            <input type="text" class="form-control" id="pname" name="pname" value="<?= (($form_type == 'Edit') ? $row['productname'] : '') ?>">
+                            <input type="text" class="form-control" id="productname" name="productname" value="<?= (($form_type == 'Edit') ? $row['productname'] : '') ?>">
                         </div>
                         <div class="form-group">
                             <label for="converter">Converter <span class="text-danger">*</span></label>
                             <input type="text" class="form-control" id="converter" name="converter" value="<?= (($form_type == 'Edit') ? $row['converter'] : '') ?>">
                         </div>
                         <div class="form-group text-right">
-                            <button class="btn btn-secondary" id="btn-cancel">Cancel</button>
-                            <button class="btn btn-primary" id="btn-proses">Save</button>
+                            <button type="button" class="btn btn-secondary" id="btn-cancel">Cancel</button>
+                            <button type="button" class="btn btn-primary" id="btn-proses">Save</button>
                         </div>
                     </form>
                 </div>
@@ -37,3 +38,64 @@
 </div>
 
 <?= $this->include('inc_master/footer') ?>
+<script type="text/javascript">
+    $(document).ready(function() {
+        var ftype = "<?= $form_type ?>";
+        if (ftype == 'Add') {
+            $('#btn-proses').text('Save');
+        } else if (ftype == 'Edit') {
+            $('#btn-proses').text('Update');
+        }
+
+        $('#btn-proses').on('click', function() {
+            var form = $('#formconvers')[0],
+                dt = new FormData(form),
+                link = "<?= base_url('convers/addData') ?>",
+                pros = 'added';
+
+            if (ftype == 'Edit') {
+                link = "<?= base_url('convers/editData') ?>"
+                pros = 'updated';
+            }
+
+            $.ajax({
+                url: link,
+                type: 'post',
+                data: dt,
+                dataType: 'json',
+                processData: false,
+                contentType: false,
+                success: function(res) {
+                    if (res.error) {
+                        let er = res.error;
+
+                        if (er.errorCode) {
+                            $('#productcode').addClass('is-invalid');
+                            $.notify(er.errorCode, 'error');
+                        } else {
+                            $('#productcode').removeClass('is-invalid');
+                            $('#productcode').addClass('is-valid');
+                        }
+                    }
+
+                    if (res.success == 1) {
+                        $.notify('Data has been ' + pros, 'success');
+                        setTimeout(() => {
+                            table.ajax.reload();
+                            window.location.href = "<?= base_url('convers') ?>"
+                        }, 500);
+                    } else {
+                        $.notify('Data not ' + pros, 'error')
+                    }
+                },
+                error: function(xhr, ajaxOptions, thrownError) {
+                    console.log(thrownError);
+                }
+            });
+        });
+
+        $('#btn-cancel').on('click', function() {
+            window.location.href = "<?= base_url('convers') ?>"
+        });
+    });
+</script>

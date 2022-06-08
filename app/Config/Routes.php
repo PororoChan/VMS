@@ -57,38 +57,49 @@ $routes->add('schedule', 'master\Schedule::index'); // tabel vmsmsschedule 404
 $routes->add('usergroup/AddViews', 'master\Usergroup::FormViews');
 $routes->add('usergroup/EditViews/(:num)', 'master\Usergroup::FormViews/$1');
 $routes->add('usergroup/AccessViews/(:num)', 'master\Usergroup::AccessViews/$1');
+
 //Master Menu
 $routes->add('menu/AddViews', 'master\Menu::FormViews');
 $routes->add('menu/EditViews/(:num)/(:num)', 'master\Menu::FormViews/$1/$2');
+
 // Brand
 $routes->add('brand/AddViews', 'master\Brand::FormViews');
 $routes->add('brand/EditViews/(:any)', 'master\Brand::FormViews/$1');
+
 //Branch
 $routes->add('branch/AddViews', 'master\Branch::FormViews');
 $routes->add('branch/EditViews/(:any)', 'master\Branch::FormViews/$1');
+
 //Area
 $routes->add('area/AddViews', 'master\Area::FormViews');
 $routes->add('area/EditViews/(:any)', 'master\Area::FormViews/$1');
+
 //Alias
 $routes->add('alias/AddViews', 'master\Alias::FormViews');
 $routes->add('alias/EditViews/(:any)', 'master\Alias::FormViews/$1');
+
 //Schedule
 $routes->add('schedule/AddViews', 'master\Schedule::FormViews');
 $routes->add('schedule/EditViews/(:any)', 'master\Schedule::FormViews/$1');
+
 //Customer
 $routes->add('customer/AddViews', 'master\Customer::FormViews');
 $routes->add('customer/EditViews/(:any)', 'master\Customer::FormViews/$1');
+
 //User
 $routes->add('user/FormViews', 'master\User::FormViews');
 $routes->add('user/EditViews/(:num)', 'master\User::FormViews/$1');
 $routes->add('userdetail/FormViews', 'master\Userdetail::FormViews');
 $routes->add('userdetail/EditViews/(:num)', 'master\Userdetail::FormViews/$1');
 $routes->add('user/Accessgroup/(:num)', 'master\User::Accessgroup/$1');
+
 //UserDetail
 $routes->add('userdetail/FormViews', 'master\UserDetail::FormViews');
 $routes->add('userdetail/EditViews/(:any)', 'master\UserDetail::FormViews/$1');
+
 //Conversions
 $routes->add('convers/FormViews', 'master\Conversion::FormViews');
+$routes->add('convers/EditViews/(:any)', 'master\Conversion::FormViews/$1');
 
 
 /**END MODAL FORM **/
@@ -149,6 +160,11 @@ $routes->add('userdetail/addData', 'master\UserDetail::addData');
 $routes->add('userdetail/editData', 'master\UserDetail::editData');
 $routes->add('userdetail/deleteData', 'master\UserDetail::deleteData');
 
+// Conversions
+$routes->add('convers/addData', 'master\Conversion::addData');
+$routes->add('convers/editData', 'master\Conversion::editData');
+$routes->add('convers/deleteData', 'master\Conversion::deleteData');
+
 /** END SUBMIT FORM **/
 
 //Datatabel
@@ -166,6 +182,7 @@ $routes->add('area/datatabel', 'master\Area::datatabel');
 $routes->add('alias/datatabel', 'master\Alias::datatabel');
 $routes->add('schedule/datatabel', 'master\Schedule::datatabel');
 $routes->add('user/grouptableaccess/(:num)', 'master\User::GroupAccessTable/$1');
+
 //Select2
 $routes->add('menu/getMaster', 'master\Menu::getMaster');
 $routes->add('user/getGroup', 'master\User::getGroup');

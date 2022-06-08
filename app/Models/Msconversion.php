@@ -13,6 +13,16 @@ class Msconversion extends Model
 		$this->builder = $this->db->table($this->table);
 	}
 
+	public function searchable()
+	{
+		return [
+			'c.productcode',
+			'c.productname',
+			null,
+			null,
+		];
+	}
+
 	public function getAll($param, $text)
 	{
 		return $this->builder;
@@ -21,11 +31,21 @@ class Msconversion extends Model
 	public function getOne($id = '')
 	{
 		return $this->builder
-			->where('productcode', $id)->get()->getResultArray();
+			->where('productcode', $id)->get()->getRowArray();
 	}
 
 	public function tambah($data)
 	{
 		return $this->builder->insert($data);
+	}
+
+	public function edit($data, $id)
+	{
+		return $this->builder->update($data, ['id' => $id]);
+	}
+
+	public function hapus($id)
+	{
+		return $this->builder->delete(['id' => $id]);
 	}
 }
