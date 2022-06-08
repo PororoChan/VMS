@@ -32,11 +32,11 @@ class Database extends Config
 	 */
 	public $default = [
 		'DSN'      => '',
-		'hostname' => '10.21.1.149',
-		'username' => 'hsm01_postgres',
-		'password' => 'P@ssw0rd',
-		'database' => 'vms',
-		'DBDriver' => 'Postgre',
+		'hostname' => 'localhost',
+		'username' => '',
+		'password' => '',
+		'database' => '',
+		'DBDriver' => '',
 		'DBPrefix' => '',
 		'pConnect' => false,
 		'DBDebug'  => (ENVIRONMENT !== 'development'),
@@ -47,7 +47,7 @@ class Database extends Config
 		'compress' => false,
 		'strictOn' => false,
 		'failover' => [],
-		'port'     => 5432,
+		'port'     => 3306,
 	];
 
 	/**
