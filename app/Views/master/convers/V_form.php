@@ -84,8 +84,6 @@
                             table.ajax.reload();
                             window.location.href = "<?= base_url('convers') ?>"
                         }, 500);
-                    } else {
-                        $.notify('Data not ' + pros, 'error')
                     }
                 },
                 error: function(xhr, ajaxOptions, thrownError) {

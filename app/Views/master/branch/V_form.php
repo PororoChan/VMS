@@ -27,10 +27,6 @@
                         </div>
                         <div class="invalid-feedback errorName">
                         </div>
-                        <div class='form-group'>
-                            <label for='user'>Name<span class="text-danger">*</span> :</label>
-                            <input type='text' class='form-control' name="branchname" id="branchname" value="<?= (($form_type == 'Edit') ? $row['branchname'] : '') ?>">
-                        </div>
 
                         <div class="form-group">
                             <label for="companyid">Area<span class="text-danger">*</span> :</label>

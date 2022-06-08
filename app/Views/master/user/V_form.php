@@ -74,14 +74,6 @@
                                 <?php } ?>
                             </select>
                         </div>
-                        <div class="form-group">
-                            <label for="companyid">Branch<span class="text-danger">*</span> :</label>
-                            <select class="form-control" name="branchid" id="branchid" style="padding: 6px; width: 100%" required>
-                                <?php if ($form_type == "Edit") { ?>
-                                    <option value="<?= $row['bc'] ?>"><?= $row['bn'] ?></option>
-                                <?php } ?>
-                            </select>
-                        </div>
 
                         <?php if ($form_type == "Edit") { ?>
                             <div class='form-group'>

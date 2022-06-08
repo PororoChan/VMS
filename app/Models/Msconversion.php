@@ -7,6 +7,7 @@ use CodeIgniter\Model;
 class Msconversion extends Model
 {
 	protected $table = 'msconversions as c';
+
 	public function __construct()
 	{
 		$this->db = db_connect();
