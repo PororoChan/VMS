@@ -24,7 +24,6 @@
                         <form id="login-form" method="POST">
                             <div class="form-group mt-3 pt-5">
                                 <div id="pesan">
-
                                 </div>
                                 <label for="user">Username</label>
                                 <input id="user" type="text" class="form-control" name="user" tabindex="1" required autofocus>
@@ -32,7 +31,6 @@
                                     Please fill in your username
                                 </div>
                             </div>
-
                             <div class="form-group">
                                 <div class="d-block">
                                     <label for="pass" class="control-label">Password</label>
@@ -42,32 +40,23 @@
                                     please fill in your password
                                 </div>
                             </div>
-
-                            <div class="form-group">
-                                <div class="custom-control custom-checkbox">
-                                    <input type="checkbox" name="remember" class="custom-control-input" tabindex="3" id="remember-me">
-                                    <label class="custom-control-label" for="remember-me">Remember Me</label>
-                                </div>
-                            </div>
-
-                            <div class="form-group text-right">
+                            <div class="form-group text-right pt-4">
                                 <button type="submit" class="btn btn-primary btn-lg btn-icon icon-right" tabindex="4" id="btn_login">
                                     Login
                                 </button>
                             </div>
                         </form>
-
                         <div class="text-center mt-5 pt-5 text-small">
                             Copyright &copy; PT Autochem Industry
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-8 col-12 order-lg-2 order-1 min-vh-100 background-walk-y position-relative overlay-gradient-bottom" style="background-color: #2E8B57">
+                <div class="col-lg-8 col-12 order-lg-2 order-1 min-vh-100" style="background-size: cover; background-repeat: no-repeat; image-rendering: pixelated; background-position: center;" data-background="<?= base_url('public/assets/img/unsplash/login-bg.jpeg') ?>">
                     <div class="absolute-bottom-left index-2">
                         <div class="text-light p-5 pb-2">
                             <div class="mb-0 pb-0">
-                                <h1 class="mb-2 display-4 font-weight-bold">Visit Monitoring System</h1>
-                                <h5 class="font-weight-normal text-muted-transparent">PT AUTOCHEM INDUSTRY</h5>
+                                <h1 class="mb-2 display-4 text-white font-weight-bold">Visit Monitoring System</h1>
+                                <h5 class="font-weight-normal text-white text-muted-transparent">PT AUTOCHEM INDUSTRY</h5>
                             </div>
                         </div>
                     </div>
