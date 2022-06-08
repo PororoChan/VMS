@@ -73,13 +73,21 @@ class Conversion extends BaseController
 					'required' => '{field} cannot be empty',
 					'is_unique' => '{field} already exist'
 				]
-			]
+			],
+			'productname' => [
+				'rules' => 'required',
+				'label' => 'Product Name',
+				'errors' => [
+					'required' => "{field} cannot be empty"
+				],
+			],
 		]);
 
 		if (!$valid) {
 			$msg = [
 				'error' => [
 					'errorCode' => $validation->getError('productcode'),
+					'errorName' => $validation->getError('productname'),
 				],
 			];
 		} else {

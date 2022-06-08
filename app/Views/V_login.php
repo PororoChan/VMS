@@ -16,17 +16,16 @@
 <body>
     <div id="app">
         <section class="section">
-            <div class="d-flex flex-wrap align-items-stretch">
+            <div class="d-flex align-items-stretch">
                 <div class="col-lg-4 col-md-6 col-12 order-lg-1 min-vh-100 order-2 bg-white">
                     <div class="p-5 m-3 mt-5">
                         <h4 class="text-dark font-weight-normal">Welcome to</h4>
                         <span class="font-weight-bold text-dark" style="font-size: 20px;">VMS PT Autochem Industry</span>
-                        <p class="text-muted">Before you get started, you must login or register if you don't already have an account.</p>
-                        <form id="login-form">
-                            <div id="pesan">
+                        <form id="login-form" method="POST">
+                            <div class="form-group mt-3 pt-5">
+                                <div id="pesan">
 
-                            </div>
-                            <div class="form-group">
+                                </div>
                                 <label for="user">Username</label>
                                 <input id="user" type="text" class="form-control" name="user" tabindex="1" required autofocus>
                                 <div class="invalid-feedback">
@@ -52,33 +51,21 @@
                             </div>
 
                             <div class="form-group text-right">
-                                <a href="auth-forgot-password.html" class="float-left mt-3">
-                                    Forgot Password?
-                                </a>
-                                <button type="button" class="btn btn-primary btn-lg btn-icon icon-right" tabindex="4" id="btn_login">
+                                <button type="submit" class="btn btn-primary btn-lg btn-icon icon-right" tabindex="4" id="btn_login">
                                     Login
                                 </button>
                             </div>
-
-                            <div class="mt-5 text-center">
-                                Don't have an account? <a href="<?= base_url('register') ?>">Create new one</a>
-                            </div>
                         </form>
 
-                        <div class="text-center mt-5 text-small">
+                        <div class="text-center mt-5 pt-5 text-small">
                             Copyright &copy; PT Autochem Industry
-                            <div class="mt-2">
-                                <a href="#">Privacy Policy</a>
-                                <div class="bullet"></div>
-                                <a href="#">Terms of Service</a>
-                            </div>
                         </div>
                     </div>
                 </div>
                 <div class="col-lg-8 col-12 order-lg-2 order-1 min-vh-100 background-walk-y position-relative overlay-gradient-bottom" style="background-color: #2E8B57">
                     <div class="absolute-bottom-left index-2">
                         <div class="text-light p-5 pb-2">
-                            <div class="mb-5 pb-0">
+                            <div class="mb-0 pb-0">
                                 <h1 class="mb-2 display-4 font-weight-bold">Visit Monitoring System</h1>
                                 <h5 class="font-weight-normal text-muted-transparent">PT AUTOCHEM INDUSTRY</h5>
                             </div>
@@ -98,11 +85,13 @@
     <script src="<?= base_url('public/assets/js/custom.js') ?>"></script>
     <script type="text/javascript">
         $(document).ready(function() {
-            $("#btn_login").on("click", function() {
+            $('#login-form').on('submit', function(ev) {
+                ev.preventDefault();
                 var user = $("#user").val().trim();
                 var pass = $("#pass").val().trim();
                 var csrfName = "<?= csrf_token() ?>"; // CSRF Token name
                 var csrfHash = $('#txt_csrfname').val(); // CSRF hash
+
                 if (user != "" && pass != "") {
                     $("#btn_login").html("<i class='fas fa-spinner fa-pulse text-light'></i>")
                     $.ajax({
@@ -111,17 +100,18 @@
                         data: {
                             user: user,
                             pass: pass,
-                            [csrfName]: csrfHash
+                            // [csrfName]: csrfHash
                         },
                         dataType: 'json',
                         success: function(response) {
-
                             var msg = "Login Berhasil"
                             if (response.success == 1) {
                                 $("#pesan").removeClass('alert alert-danger');
                                 $("#pesan").addClass('alert alert-success');
-                                window.location = "<?= base_url('branch') ?>";
-                            } else {
+                                setTimeout(() => {
+                                    window.location = "<?= base_url('branch') ?>";
+                                }, 500);
+                            } else if (response.success == 0) {
                                 $("#pesan").addClass('alert alert-danger');
                                 var msg = "Username atau Password Salah";
                             }
@@ -133,7 +123,6 @@
                         }
                     });
                 }
-
             });
         });
     </script>

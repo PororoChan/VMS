@@ -71,14 +71,19 @@
 
                         if (er.errorCode) {
                             $('#productcode').addClass('is-invalid');
-                            $.notify(er.errorCode, 'error');
+                            $.notify(er.errorCode, 'warn');
+                        } else if (er.errorName) {
+                            $('#productname').addClass('is-invalid');
+                            $.notify(er.errorName, 'warn');
                         } else {
                             $('#productcode').removeClass('is-invalid');
-                            $('#productcode').addClass('is-valid');
+                            $('#productname').removeClass('is-invalid');
                         }
                     }
 
                     if (res.success == 1) {
+                        $('#productcode').removeClass('is-invalid');
+                        $('#productname').removeClass('is-invalid');
                         $.notify('Data has been ' + pros, 'success');
                         setTimeout(() => {
                             table.ajax.reload();
