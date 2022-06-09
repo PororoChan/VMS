@@ -44,7 +44,9 @@ class MsuserDetail extends Model
     public function getSel2($searchTerm)
     {
         return $this->builder
-            ->where("fullname like '%" . $searchTerm . "%'")->get()->getResultArray();
+            ->where("fullname like '%" . $searchTerm . "%'")
+            ->orderBy("fullname", 'asc')
+            ->get()->getResultArray();
     }
     public function get_one($id = '')
     {

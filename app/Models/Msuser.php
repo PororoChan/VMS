@@ -41,6 +41,7 @@ class Msuser extends Model
             ->join('vmsmsuser as u', 'u.usercode = b.userid')
             ->join('vmsmsbranch as r', 'u.branchid = r.branchcode');
     }
+
     public function cek($user)
     {
         return $this->builder
